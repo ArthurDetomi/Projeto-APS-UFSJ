@@ -2,6 +2,7 @@ resources/db.properties
 .idea/encodings.xml
 .idea/misc.xml
 .idea/uiDesigner.xml
+.idea/
 
 target/
 !.mvn/wrapper/maven-wrapper.jar
