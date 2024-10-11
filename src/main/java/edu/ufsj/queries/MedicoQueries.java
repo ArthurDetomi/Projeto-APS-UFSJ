@@ -9,16 +9,11 @@ import java.util.List;
 
 public class MedicoQueries {
     private Connection connection;
-    private PreparedStatement selectAll;
 
     public MedicoQueries() {
         try {
             connection = DriverManager.getConnection(
                     DataBaseConfig.getURL(), DataBaseConfig.getUsername(), DataBaseConfig.getPassword()
-            );
-
-            selectAll = connection.prepareStatement(
-                    "select * from medicos"
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,6 +26,10 @@ public class MedicoQueries {
 
         ResultSet resultSet = null;
         try {
+            PreparedStatement selectAll = connection.prepareStatement(
+                    "SELECT * FROM medicos"
+            );
+
             resultSet = selectAll.executeQuery();
             medicos = new ArrayList<>();
 
