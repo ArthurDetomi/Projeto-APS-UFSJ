@@ -39,11 +39,12 @@ public class JLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1024, 768));
         setMinimumSize(new java.awt.Dimension(1024, 768));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jProgramNameLabel.setFont(new java.awt.Font("Liberation Serif", 1, 36)); // NOI18N
         jProgramNameLabel.setText("Clinic Manager");
-        getContentPane().add(jProgramNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, -1, -1));
+        getContentPane().add(jProgramNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
 
         jLoginPanel.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -92,7 +93,7 @@ public class JLogin extends javax.swing.JFrame {
         jLoginPanelLayout.setVerticalGroup(
             jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLoginPanelLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(33, 33, 33)
                 .addComponent(jWelcomeLabel)
                 .addGap(32, 32, 32)
                 .addComponent(jLoginLabel)
@@ -102,12 +103,12 @@ public class JLogin extends javax.swing.JFrame {
                 .addComponent(jPasswordLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(jLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
         );
 
-        getContentPane().add(jLoginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 390, 380));
+        getContentPane().add(jLoginPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 390, 380));
 
         jBackgroundLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/planodefundo.png"))); // NOI18N
         jBackgroundLabel.setText("jLabel1");
@@ -115,7 +116,7 @@ public class JLogin extends javax.swing.JFrame {
         jBackgroundLabel.setMinimumSize(new java.awt.Dimension(1024, 768));
         jBackgroundLabel.setName("PlanoDeFundo"); // NOI18N
         jBackgroundLabel.setPreferredSize(new java.awt.Dimension(1024, 768));
-        getContentPane().add(jBackgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -10, 1560, 980));
+        getContentPane().add(jBackgroundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -10, 1180, 850));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
