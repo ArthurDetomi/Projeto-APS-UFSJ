@@ -1,11 +1,6 @@
-package edu.ufsj.queries;
+/*
+package edu.ufsj.dao;
 
-import edu.ufsj.config.DataBaseConfig;
-import edu.ufsj.model.Medico;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MedicoQueries {
     private Connection connection;
@@ -65,3 +60,4 @@ public class MedicoQueries {
     }
 
 }
+ */
