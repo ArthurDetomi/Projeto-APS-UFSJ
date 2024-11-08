@@ -21,14 +21,14 @@ public class UsuarioDao implements GenericDao<Usuario> {
 
     @Override
     public boolean create(Usuario usuario) {
-        String createNewUsuarioQuery = "INSERT INTO usuarios (nome, cpf, telefone, email, login, password, tipo_usuario, editado)" +
+        final String CREATE_NEW_USUARIO_QUERY = "INSERT INTO usuarios (nome, cpf, telefone, email, login, password, tipo_usuario, editado)" +
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         int result = 0;
 
         try {
             PreparedStatement createNewUsuarioStatement = connection.prepareStatement(
-                    createNewUsuarioQuery
+                    CREATE_NEW_USUARIO_QUERY
             );
 
             createNewUsuarioStatement.setString(1, usuario.getNome());
