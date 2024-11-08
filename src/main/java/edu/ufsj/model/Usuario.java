@@ -15,6 +15,20 @@ public class Usuario {
     private LocalDateTime editado;
     private TipoUsuario tipoUsuario;
 
+    public Usuario(Integer id, String login, String password, String cpf, String nome, String telefone,
+                   String email, LocalDateTime cadastrado, LocalDateTime editado, TipoUsuario tipoUsuario) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
+        this.cadastrado = cadastrado;
+        this.editado = editado;
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public Usuario(String login, String password,
                    String cpf, String nome, String telefone, String email,
                    LocalDateTime editado,
@@ -49,6 +63,22 @@ public class Usuario {
         }
         final Usuario other = (Usuario) obj;
         return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", nome='" + nome + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", cadastrado=" + cadastrado +
+                ", editado=" + editado +
+                ", tipoUsuario=" + tipoUsuario +
+                '}';
     }
 
     public Integer getId() {
