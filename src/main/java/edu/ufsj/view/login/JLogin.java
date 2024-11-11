@@ -4,6 +4,9 @@
  */
 package edu.ufsj.view.login;
 
+import edu.ufsj.view.home.JHome;
+import javax.swing.JFrame;
+
 /**
  *
  * @author geraldoarthurdetomi
@@ -122,7 +125,11 @@ public class JLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginButtonActionPerformed
-        // TODO add your handling code here:
+        JHome jHome = new JHome();
+        jHome.setVisible(true);
+        jHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        this.setVisible(false);
     }//GEN-LAST:event_jLoginButtonActionPerformed
 
     private void jLoginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginFieldActionPerformed
