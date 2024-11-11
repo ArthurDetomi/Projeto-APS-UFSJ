@@ -4,6 +4,9 @@
  */
 package edu.ufsj.view.home;
 
+import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
+import javax.swing.JFrame;
+
 /**
  *
  * @author arthurd
@@ -26,23 +29,23 @@ public class JHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jListarAgendaButton = new javax.swing.JButton();
+        jListarAtendimentosButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTabelaListagens = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jAplicarFiltroBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        jListarPacientesButton = new javax.swing.JButton();
+        jListarAtendentesButton = new javax.swing.JButton();
+        jListarMedicosButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastro = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jCadastroConsulta = new javax.swing.JMenuItem();
+        jCadastroPaciente = new javax.swing.JMenuItem();
+        jCadastroMedico = new javax.swing.JMenuItem();
+        jCadastroAtendente = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
@@ -51,18 +54,18 @@ public class JHome extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("Agenda");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jListarAgendaButton.setText("Agenda");
+        jListarAgendaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jListarAgendaButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 180, -1));
+        getContentPane().add(jListarAgendaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 180, -1));
 
-        jButton2.setText("Lista de Atendimento");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 180, -1));
+        jListarAtendimentosButton.setText("Lista de Atendimento");
+        getContentPane().add(jListarAtendimentosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 180, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTabelaListagens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -73,32 +76,32 @@ public class JHome extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTabelaListagens);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 830, 650));
 
         jLabel2.setText("FILTROS:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 180, -1));
+        jAplicarFiltroBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jAplicarFiltroBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 180, -1));
 
         jLabel3.setText("LISTAR:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
 
-        jButton4.setText("Pacientes");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jListarPacientesButton.setText("Pacientes");
+        jListarPacientesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jListarPacientesButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 180, -1));
+        getContentPane().add(jListarPacientesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 180, -1));
 
-        jButton6.setText("Atendentes");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 180, -1));
+        jListarAtendentesButton.setText("Atendentes");
+        getContentPane().add(jListarAtendentesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 180, -1));
 
-        jButton5.setText("Médicos");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 180, -1));
+        jListarMedicosButton.setText("Médicos");
+        getContentPane().add(jListarMedicosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 180, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/background-home.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -108,27 +111,37 @@ public class JHome extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1360, 768));
 
         jMenuCadastro.setText("Cadastro");
-
-        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/consulta.png"))); // NOI18N
-        jMenuItem4.setText("Consulta Médica");
-        jMenuCadastro.add(jMenuItem4);
-
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/patient.png"))); // NOI18N
-        jMenuItem2.setText("Paciente");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenuCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuCadastroActionPerformed(evt);
             }
         });
-        jMenuCadastro.add(jMenuItem2);
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/doctor.png"))); // NOI18N
-        jMenuItem1.setText("Médico");
-        jMenuCadastro.add(jMenuItem1);
+        jCadastroConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/consulta.png"))); // NOI18N
+        jCadastroConsulta.setText("Consulta Médica");
+        jMenuCadastro.add(jCadastroConsulta);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/atendente.png"))); // NOI18N
-        jMenuItem3.setText("Atendente");
-        jMenuCadastro.add(jMenuItem3);
+        jCadastroPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/patient.png"))); // NOI18N
+        jCadastroPaciente.setText("Paciente");
+        jCadastroPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCadastroPacienteMouseClicked(evt);
+            }
+        });
+        jCadastroPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastroPacienteActionPerformed(evt);
+            }
+        });
+        jMenuCadastro.add(jCadastroPaciente);
+
+        jCadastroMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/doctor.png"))); // NOI18N
+        jCadastroMedico.setText("Médico");
+        jMenuCadastro.add(jCadastroMedico);
+
+        jCadastroAtendente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/atendente.png"))); // NOI18N
+        jCadastroAtendente.setText("Atendente");
+        jMenuCadastro.add(jCadastroAtendente);
 
         jMenuBar1.add(jMenuCadastro);
 
@@ -137,17 +150,28 @@ public class JHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void jCadastroPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroPacienteActionPerformed
+       JDialogCadastroPaciente jDialogCadastroPaciente = new JDialogCadastroPaciente();
+       jDialogCadastroPaciente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       jDialogCadastroPaciente.setLocationRelativeTo(null); // Centraliza o JFrame
+       jDialogCadastroPaciente.setVisible(true);
+    }//GEN-LAST:event_jCadastroPacienteActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jListarAgendaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarAgendaButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jListarAgendaButtonActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jListarPacientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarPacientesButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jListarPacientesButtonActionPerformed
+
+    private void jCadastroPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCadastroPacienteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCadastroPacienteMouseClicked
+
+    private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuCadastroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,22 +209,22 @@ public class JHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jAplicarFiltroBox;
+    private javax.swing.JMenuItem jCadastroAtendente;
+    private javax.swing.JMenuItem jCadastroConsulta;
+    private javax.swing.JMenuItem jCadastroMedico;
+    private javax.swing.JMenuItem jCadastroPaciente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jListarAgendaButton;
+    private javax.swing.JButton jListarAtendentesButton;
+    private javax.swing.JButton jListarAtendimentosButton;
+    private javax.swing.JButton jListarMedicosButton;
+    private javax.swing.JButton jListarPacientesButton;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastro;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTabelaListagens;
     // End of variables declaration//GEN-END:variables
 }
