@@ -7,6 +7,6 @@ public class Main {
     public static void main(String[] args) {
         JLogin jLogin = new JLogin();
         jLogin.setVisible(true);
-        jLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
