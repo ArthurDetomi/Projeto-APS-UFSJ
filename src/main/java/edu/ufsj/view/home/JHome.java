@@ -49,8 +49,9 @@ public class JHome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
-        setMaximumSize(new java.awt.Dimension(1360, 768));
-        setMinimumSize(new java.awt.Dimension(1360, 768));
+        setMaximumSize(new java.awt.Dimension(1360, 400));
+        setMinimumSize(new java.awt.Dimension(1360, 400));
+        setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -78,7 +79,7 @@ public class JHome extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTabelaListagens);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 830, 650));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 770, 520));
 
         jLabel2.setText("FILTROS:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
