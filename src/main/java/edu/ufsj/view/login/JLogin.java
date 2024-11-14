@@ -127,6 +127,7 @@ public class JLogin extends javax.swing.JFrame {
     private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginButtonActionPerformed
         JHome jHome = new JHome();
         jHome.setVisible(true);
+        jHome.setLocationRelativeTo(null);
         jHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         this.setVisible(false);
