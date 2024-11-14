@@ -39,6 +39,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="M&#xe9;dico"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCadastroMedicoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jCadastroAtendente">
               <Properties>
@@ -47,6 +50,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Atendente"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCadastroAtendenteActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -4,7 +4,9 @@
  */
 package edu.ufsj.view.home;
 
+import edu.ufsj.view.dialogs.JDialogCadastroMedico;
 import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
+import edu.ufsj.view.dialogs.jDialogCadastroAtendente;
 import javax.swing.JFrame;
 
 /**
@@ -138,10 +140,20 @@ public class JHome extends javax.swing.JFrame {
 
         jCadastroMedico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/doctor.png"))); // NOI18N
         jCadastroMedico.setText("Médico");
+        jCadastroMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastroMedicoActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jCadastroMedico);
 
         jCadastroAtendente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/atendente.png"))); // NOI18N
         jCadastroAtendente.setText("Atendente");
+        jCadastroAtendente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastroAtendenteActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jCadastroAtendente);
 
         jMenuBar1.add(jMenuCadastro);
@@ -173,6 +185,20 @@ public class JHome extends javax.swing.JFrame {
     private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuCadastroActionPerformed
+
+    private void jCadastroMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroMedicoActionPerformed
+        JDialogCadastroMedico jDialogCadastroMedico = new JDialogCadastroMedico();
+        jDialogCadastroMedico.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jDialogCadastroMedico.setLocationRelativeTo(null);
+        jDialogCadastroMedico.setVisible(true);
+    }//GEN-LAST:event_jCadastroMedicoActionPerformed
+
+    private void jCadastroAtendenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroAtendenteActionPerformed
+        jDialogCadastroAtendente jDialogCadastroAtendente = new jDialogCadastroAtendente();
+        jDialogCadastroAtendente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jDialogCadastroAtendente.setLocationRelativeTo(null);
+        jDialogCadastroAtendente.setVisible(true);
+    }//GEN-LAST:event_jCadastroAtendenteActionPerformed
 
     /**
      * @param args the command line arguments

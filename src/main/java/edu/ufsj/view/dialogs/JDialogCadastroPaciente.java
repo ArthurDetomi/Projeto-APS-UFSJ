@@ -40,11 +40,10 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
         jTextFieldNumero = new javax.swing.JTextField();
         jTextFieldEstado = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jCadastroPacienteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(400, 621));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 255));
@@ -70,15 +69,15 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
 
         JEstado.setText("Estado:");
 
-        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel7.setText("Cadastro de Paciente");
 
-        jButton1.setBackground(new java.awt.Color(102, 153, 255));
-        jButton1.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jCadastroPacienteButton.setBackground(new java.awt.Color(102, 153, 255));
+        jCadastroPacienteButton.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        jCadastroPacienteButton.setText("Cadastrar");
+        jCadastroPacienteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jCadastroPacienteButtonActionPerformed(evt);
             }
         });
 
@@ -96,30 +95,29 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
                     .addComponent(JNumero)
                     .addComponent(JEstado))
                 .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldNumero, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldEstado, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNome)
-                            .addComponent(jTextFieldTelefone)
-                            .addComponent(jTextFieldCidade)
-                            .addComponent(jTextFieldCPF))
-                        .addGap(44, 44, 44))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldEstado, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextFieldNome)
+                    .addComponent(jTextFieldTelefone)
+                    .addComponent(jTextFieldCidade)
+                    .addComponent(jTextFieldCPF))
+                .addGap(44, 44, 44))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 97, Short.MAX_VALUE))
+                .addComponent(jCadastroPacienteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(jLabel7)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel7)
-                .addGap(45, 45, 45)
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jNome)
                     .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,7 +142,7 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
                     .addComponent(JEstado)
                     .addComponent(jTextFieldEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(73, 73, 73)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jCadastroPacienteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -156,7 +154,7 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 621, Short.MAX_VALUE)
         );
 
         pack();
@@ -166,9 +164,9 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jCadastroPacienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroPacienteButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jCadastroPacienteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,8 +207,8 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel JCidade;
     private javax.swing.JLabel JEstado;
     private javax.swing.JLabel JNumero;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jCPF;
+    private javax.swing.JButton jCadastroPacienteButton;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jNome;
     private javax.swing.JPanel jPanel1;
