@@ -31,7 +31,6 @@ public class JDialogCadastroMedico extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLoginTextField = new javax.swing.JTextField();
         jPasswordField = new javax.swing.JPasswordField();
-        jCpfTextField = new javax.swing.JTextField();
         jCrmTextField = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
@@ -45,6 +44,7 @@ public class JDialogCadastroMedico extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jCpfTextField = new javax.swing.JFormattedTextField();
 
         jTextField7.setText("jTextField7");
 
@@ -57,12 +57,6 @@ public class JDialogCadastroMedico extends javax.swing.JFrame {
         jLoginTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLoginTextFieldActionPerformed(evt);
-            }
-        });
-
-        jCpfTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCpfTextFieldActionPerformed(evt);
             }
         });
 
@@ -87,6 +81,12 @@ public class JDialogCadastroMedico extends javax.swing.JFrame {
 
         jLabel8.setText("E-mail");
 
+        try {
+            jCpfTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -103,16 +103,20 @@ public class JDialogCadastroMedico extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField5)
+                                    .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(jCpfTextField))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLoginTextField)
                             .addComponent(jPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-                            .addComponent(jCpfTextField)
                             .addComponent(jCrmTextField)
                             .addComponent(jTextField4))))
                 .addGap(29, 29, 29))
@@ -141,8 +145,8 @@ public class JDialogCadastroMedico extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jCpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCrmTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,10 +181,6 @@ public class JDialogCadastroMedico extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jCpfTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCpfTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCpfTextFieldActionPerformed
 
     private void jLoginTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginTextFieldActionPerformed
         // TODO add your handling code here:
@@ -223,7 +223,7 @@ public class JDialogCadastroMedico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jCadastroMedicoButton;
-    private javax.swing.JTextField jCpfTextField;
+    private javax.swing.JFormattedTextField jCpfTextField;
     private javax.swing.JTextField jCrmTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

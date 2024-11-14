@@ -34,13 +34,13 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
         JCidade = new javax.swing.JLabel();
         JNumero = new javax.swing.JLabel();
         JEstado = new javax.swing.JLabel();
-        jTextFieldCPF = new javax.swing.JTextField();
         jTextFieldTelefone = new javax.swing.JTextField();
         jTextFieldCidade = new javax.swing.JTextField();
         jTextFieldNumero = new javax.swing.JTextField();
         jTextFieldEstado = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jCadastroPacienteButton = new javax.swing.JButton();
+        jCpfTextField = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(500, 500));
@@ -81,6 +81,12 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
             }
         });
 
+        try {
+            jCpfTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -101,7 +107,7 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
                     .addComponent(jTextFieldNome)
                     .addComponent(jTextFieldTelefone)
                     .addComponent(jTextFieldCidade)
-                    .addComponent(jTextFieldCPF))
+                    .addComponent(jCpfTextField))
                 .addGap(44, 44, 44))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(80, 80, 80)
@@ -124,7 +130,7 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCPF)
-                    .addComponent(jTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTelefone)
@@ -209,11 +215,11 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
     private javax.swing.JLabel JNumero;
     private javax.swing.JLabel jCPF;
     private javax.swing.JButton jCadastroPacienteButton;
+    private javax.swing.JFormattedTextField jCpfTextField;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jNome;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel jTelefone;
-    private javax.swing.JTextField jTextFieldCPF;
     private javax.swing.JTextField jTextFieldCidade;
     private javax.swing.JTextField jTextFieldEstado;
     private javax.swing.JTextField jTextFieldNome;

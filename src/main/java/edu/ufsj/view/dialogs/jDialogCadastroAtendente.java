@@ -30,7 +30,6 @@ public class jDialogCadastroAtendente extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLoginTextField = new javax.swing.JTextField();
         jPasswordField = new javax.swing.JPasswordField();
-        jCPFTextField = new javax.swing.JTextField();
         jNomeTextField = new javax.swing.JTextField();
         jTelefoneTextField = new javax.swing.JTextField();
         jEmailTextField = new javax.swing.JTextField();
@@ -42,6 +41,7 @@ public class jDialogCadastroAtendente extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jCadastroMedicoButton = new javax.swing.JButton();
+        jCpfTextField = new javax.swing.JFormattedTextField();
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel1.setText("Cadastro de Médico");
@@ -80,6 +80,12 @@ public class jDialogCadastroAtendente extends javax.swing.JFrame {
             }
         });
 
+        try {
+            jCpfTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,10 +103,10 @@ public class jDialogCadastroAtendente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLoginTextField)
                     .addComponent(jPasswordField)
-                    .addComponent(jCPFTextField)
                     .addComponent(jNomeTextField)
                     .addComponent(jTelefoneTextField)
-                    .addComponent(jEmailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                    .addComponent(jEmailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(jCpfTextField))
                 .addGap(27, 27, 27))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(88, Short.MAX_VALUE)
@@ -126,8 +132,8 @@ public class jDialogCadastroAtendente extends javax.swing.JFrame {
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCPFTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(jCpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jNomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,8 +209,8 @@ public class jDialogCadastroAtendente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jCPFTextField;
     private javax.swing.JButton jCadastroMedicoButton;
+    private javax.swing.JFormattedTextField jCpfTextField;
     private javax.swing.JTextField jEmailTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
