@@ -4,6 +4,7 @@
  */
 package edu.ufsj.view.home;
 
+import edu.ufsj.view.dialogs.JDialogCadastroConsulta;
 import edu.ufsj.view.dialogs.JDialogCadastroMedico;
 import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
 import edu.ufsj.view.dialogs.jDialogCadastroAtendente;
@@ -122,6 +123,11 @@ public class JHome extends javax.swing.JFrame {
 
         jCadastroConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/consulta.png"))); // NOI18N
         jCadastroConsulta.setText("Consulta Médica");
+        jCadastroConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastroConsultaActionPerformed(evt);
+            }
+        });
         jMenuCadastro.add(jCadastroConsulta);
 
         jCadastroPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/patient.png"))); // NOI18N
@@ -199,6 +205,13 @@ public class JHome extends javax.swing.JFrame {
         jDialogCadastroAtendente.setLocationRelativeTo(null);
         jDialogCadastroAtendente.setVisible(true);
     }//GEN-LAST:event_jCadastroAtendenteActionPerformed
+
+    private void jCadastroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroConsultaActionPerformed
+        JDialogCadastroConsulta jDialogCadastroConsulta = new JDialogCadastroConsulta();
+        jDialogCadastroConsulta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jDialogCadastroConsulta.setLocationRelativeTo(null);
+        jDialogCadastroConsulta.setVisible(true);
+    }//GEN-LAST:event_jCadastroConsultaActionPerformed
 
     /**
      * @param args the command line arguments
