@@ -37,6 +37,7 @@ public class Paciente {
 
     public void formatarCampos() {
         this.cpf = StringUtil.keepOnlyNumbers(this.cpf);
+        this.telefone = StringUtil.keepOnlyNumbers(this.telefone);
     }
 
     @Override

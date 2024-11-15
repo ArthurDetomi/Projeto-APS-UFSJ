@@ -21,6 +21,8 @@ public class PacienteDao implements GenericDao<Paciente> {
 
 	@Override
 	public boolean create(Paciente paciente) {
+		paciente.formatarCampos();
+
 		final String CREATE_NEW_PACIENTE_QUERY = ""
 				+ "INSERT INTO  pacientes (nome, cpf, telefone, cidade, estado, numero, editado) VALUES (?, ?, ?, ?, ?, ?, ?)";
 

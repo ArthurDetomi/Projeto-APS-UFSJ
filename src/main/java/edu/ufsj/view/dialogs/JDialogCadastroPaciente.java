@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import edu.ufsj.controller.PacienteController;
 import edu.ufsj.model.Paciente;
+import edu.ufsj.utils.CpfUtil;
 
 /**
  *
@@ -189,6 +190,10 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
 			return;
 		}
 
+		if (!CpfUtil.isValidCpf(cpf)) {
+			JOptionPane.showMessageDialog(null, "Cpf inválido", "Revise o cpf informado", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 		PacienteController pacienteController = new PacienteController();
 
 		Paciente paciente = new Paciente(nome, cpf, telefone, estado, cidade, numero);
