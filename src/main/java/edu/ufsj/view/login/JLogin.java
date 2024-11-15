@@ -4,8 +4,11 @@
  */
 package edu.ufsj.view.login;
 
+import edu.ufsj.controller.UsuarioController;
+import edu.ufsj.exception.FalhaAutenticacaoUsuarioException;
 import edu.ufsj.view.home.JHome;
-import javax.swing.JFrame;
+
+import javax.swing.*;
 
 /**
  *
@@ -124,14 +127,35 @@ public class JLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginButtonActionPerformed
-        JHome jHome = new JHome();
-        jHome.setVisible(true);
-        jHome.setLocationRelativeTo(null);
-        jHome.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        this.setVisible(false);
-    }//GEN-LAST:event_jLoginButtonActionPerformed
+	private void jLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jLoginButtonActionPerformed
+		String login = jLoginField.getText();
+		String password = jPasswordField.getText();
+
+		if (login.isBlank() || password.isBlank()) {
+			JOptionPane.showMessageDialog(null, "Você deve digitar seu login e senha!");
+			return;
+		}
+
+		UsuarioController usuarioController = new UsuarioController();
+
+		boolean loginRealizadoComSucesso = false;
+
+		try {
+			usuarioController.realizarLogin(login, password);
+			loginRealizadoComSucesso = true;
+		} catch (FalhaAutenticacaoUsuarioException falhaAutenticacaoUsuarioException) {
+			JOptionPane.showMessageDialog(null, falhaAutenticacaoUsuarioException.getMessage());
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Houve um erro inesperado no sistema");
+		}
+
+		if (loginRealizadoComSucesso) {
+			JHome jHome = new JHome();
+			jHome.abrirDialog();
+
+			this.setVisible(false);
+		}
+	}// GEN-LAST:event_jLoginButtonActionPerformed
 
     private void jLoginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginFieldActionPerformed
         // TODO add your handling code here:

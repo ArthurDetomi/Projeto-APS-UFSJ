@@ -1,107 +1,105 @@
 package edu.ufsj.dao;
 
+import java.sql.*;
+import java.time.LocalDateTime;
+
 import edu.ufsj.config.DataBaseConfig;
 import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
 
-import java.sql.*;
-
 public class UsuarioDao implements GenericDao<Usuario> {
 
-    private Connection connection;
+	private Connection connection;
 
-    public UsuarioDao() {
-        try {
-            connection = DriverManager.getConnection(
-                    DataBaseConfig.getURL(), DataBaseConfig.getUsername(), DataBaseConfig.getPassword()
-            );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	public UsuarioDao() {
+		try {
+			connection = DriverManager.getConnection(DataBaseConfig.getURL(), DataBaseConfig.getUsername(),
+					DataBaseConfig.getPassword());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-    @Override
-    public boolean create(Usuario usuario) {
-        final String CREATE_NEW_USUARIO_QUERY = "INSERT INTO usuarios (nome, cpf, telefone, email, login, password, tipo_usuario, editado)" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	@Override
+	public boolean create(Usuario usuario) {
+		final String CREATE_NEW_USUARIO_QUERY = "INSERT INTO usuarios (nome, cpf, telefone, email, login, password, tipo_usuario, editado)"
+				+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        int result = 0;
+		int result = 0;
 
-        try {
-            PreparedStatement createNewUsuarioStatement = connection.prepareStatement(
-                    CREATE_NEW_USUARIO_QUERY
-            );
+		try {
+			PreparedStatement createNewUsuarioStatement = connection.prepareStatement(CREATE_NEW_USUARIO_QUERY);
 
-            createNewUsuarioStatement.setString(1, usuario.getNome());
-            createNewUsuarioStatement.setString(2, usuario.getCpf());
-            createNewUsuarioStatement.setString(3, usuario.getTelefone());
-            createNewUsuarioStatement.setString(4, usuario.getEmail());
-            createNewUsuarioStatement.setString(5, usuario.getLogin());
-            createNewUsuarioStatement.setString(6, usuario.getPassword());
-            createNewUsuarioStatement.setString(7, usuario.getTipoUsuario().getTipo());
-            createNewUsuarioStatement.setTimestamp(8, Timestamp.valueOf(usuario.getEditado()));
+			createNewUsuarioStatement.setString(1, usuario.getNome());
+			createNewUsuarioStatement.setString(2, usuario.getCpf());
+			createNewUsuarioStatement.setString(3, usuario.getTelefone());
+			createNewUsuarioStatement.setString(4, usuario.getEmail());
+			createNewUsuarioStatement.setString(5, usuario.getLogin());
+			createNewUsuarioStatement.setString(6, usuario.getPassword());
+			createNewUsuarioStatement.setString(7, usuario.getTipoUsuario().getTipo());
+			createNewUsuarioStatement.setTimestamp(8, Timestamp.valueOf(usuario.getEditado()));
 
-            result = createNewUsuarioStatement.executeUpdate();
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        } finally {
-            close();
-        }
+			result = createNewUsuarioStatement.executeUpdate();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		} finally {
+			close();
+		}
 
-        return result == 1;
-    }
+		return result == 1;
+	}
 
-    private Usuario extractUserByResultSet(ResultSet resultSet) throws SQLException {
-        Integer id = resultSet.getInt("id");
+	private Usuario extractUserByResultSet(ResultSet resultSet) throws SQLException {
+		Integer id = resultSet.getInt("id");
 
-        TipoUsuario tipoUsuario = TipoUsuario.getFromTipo(
-                resultSet.getString("tipo_usuario")
-        );
+		TipoUsuario tipoUsuario = TipoUsuario.getFromTipo(resultSet.getString("tipo_usuario"));
 
-        Timestamp editado = resultSet.getTimestamp("editado");
-        Timestamp cadastrado = resultSet.getTimestamp("cadastrado");
-        String cpf = resultSet.getString("cpf");
-        String telefone = resultSet.getString("telefone");
-        String email = resultSet.getString("email");
-        String login = resultSet.getString("login");
-        String password = resultSet.getString("password");
-        String nome = resultSet.getString("nome");
+		Timestamp editadoTimestamp = resultSet.getTimestamp("editado");
+		Timestamp cadastradoTimestamp = resultSet.getTimestamp("cadastrado");
+		String cpf = resultSet.getString("cpf");
+		String telefone = resultSet.getString("telefone");
+		String email = resultSet.getString("email");
+		String login = resultSet.getString("login");
+		String password = resultSet.getString("password");
+		String nome = resultSet.getString("nome");
 
-        return new Usuario(
-                id, login, password, cpf, nome, telefone, email, cadastrado.toLocalDateTime(), editado.toLocalDateTime(), tipoUsuario
-        );
-    }
+		LocalDateTime cadastrado = (cadastradoTimestamp == null) ? null : cadastradoTimestamp.toLocalDateTime();
+		LocalDateTime editado = (editadoTimestamp == null) ? null : editadoTimestamp.toLocalDateTime();
 
-    public Usuario findByLoginAndPassword(String login, String password) {
-        final String FIND_BY_LOGIN_AND_PASSWORD_QUERY = "SELECT * FROM usuarios WHERE login = ? AND password = ?";
+		return new Usuario(id, login, password, cpf, nome, telefone, email, cadastrado, editado, tipoUsuario);
+	}
 
-        Usuario usuario = null;
+	public Usuario findByLoginAndPassword(String login, String password) {
+		final String FIND_BY_LOGIN_AND_PASSWORD_QUERY = "SELECT * FROM usuarios WHERE login = ? AND password = ?";
 
-        try {
-            PreparedStatement findByLoginAndPasswordStatement = connection.prepareStatement(FIND_BY_LOGIN_AND_PASSWORD_QUERY);
+		Usuario usuario = null;
 
-            findByLoginAndPasswordStatement.setString(1, login);
-            findByLoginAndPasswordStatement.setString(2, password);
+		try {
+			PreparedStatement findByLoginAndPasswordStatement = connection
+					.prepareStatement(FIND_BY_LOGIN_AND_PASSWORD_QUERY);
 
-            ResultSet resultSet = findByLoginAndPasswordStatement.executeQuery();
+			findByLoginAndPasswordStatement.setString(1, login);
+			findByLoginAndPasswordStatement.setString(2, password);
 
-            if (resultSet.next()) {
-                usuario = extractUserByResultSet(resultSet);
-            }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        } finally {
-            close();
-        }
+			ResultSet resultSet = findByLoginAndPasswordStatement.executeQuery();
 
-        return usuario;
-    }
+			if (resultSet.next()) {
+				usuario = extractUserByResultSet(resultSet);
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		} finally {
+			close();
+		}
 
-    public void close() {
-        try {
-            connection.close();
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
-    }
+		return usuario;
+	}
+
+	public void close() {
+		try {
+			connection.close();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+	}
 }

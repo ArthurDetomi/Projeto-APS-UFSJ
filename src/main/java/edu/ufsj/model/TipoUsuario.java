@@ -5,7 +5,7 @@ package edu.ufsj.model;
  * @author arthurd
  */
 public enum TipoUsuario {
-    ADMIN("Admin"),
+    ADMIN("ADMIN"),
     MEDICO("Medico"),
     ATENDENTE("Atendente");
     
@@ -17,7 +17,7 @@ public enum TipoUsuario {
     
     public static TipoUsuario getFromTipo(String tipo) {
         for (TipoUsuario tipoUsuario : values()) {
-            if (tipoUsuario.tipo.equals(tipo)) {
+            if (tipoUsuario.tipo.equalsIgnoreCase(tipo)) {
                 return tipoUsuario;
             }
         }

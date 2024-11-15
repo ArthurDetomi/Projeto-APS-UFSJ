@@ -52,3 +52,7 @@ CREATE TABLE consultas (
     CONSTRAINT fk_consultas_pacientes FOREIGN KEY (paciente_id)
         REFERENCES pacientes (id)
 );
+
+INSERT INTO `clinicmanagerdb`.`usuarios`
+(`nome`, `cpf`, `login`, `password`, `tipo_usuario`, `cadastrado`)
+VALUES ('Admin', '57432795860', 'admin', 'admin', 'Admin', NOW());
