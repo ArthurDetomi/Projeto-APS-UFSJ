@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import edu.ufsj.utils.StringUtil;
+
 public class Paciente {
     private Integer id;
     private String cpf;
@@ -16,12 +18,25 @@ public class Paciente {
     private LocalDateTime editado;
     private List<Consulta> consultas;
 
+    public Paciente(String nome, String cpf, String telefone, String estado, String cidade, String numero) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.estado = estado;
+        this.cidade = cidade;
+        this.numero = numero;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Paciente paciente = (Paciente) o;
         return Objects.equals(id, paciente.id);
+    }
+
+    public void formatarCampos() {
+        this.cpf = StringUtil.keepOnlyNumbers(this.cpf);
     }
 
     @Override

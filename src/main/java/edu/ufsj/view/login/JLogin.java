@@ -6,6 +6,7 @@ package edu.ufsj.view.login;
 
 import edu.ufsj.controller.UsuarioController;
 import edu.ufsj.exception.FalhaAutenticacaoUsuarioException;
+import edu.ufsj.service.UserSession;
 import edu.ufsj.view.home.JHome;
 
 import javax.swing.*;
@@ -144,12 +145,15 @@ public class JLogin extends javax.swing.JFrame {
 			usuarioController.realizarLogin(login, password);
 			loginRealizadoComSucesso = true;
 		} catch (FalhaAutenticacaoUsuarioException falhaAutenticacaoUsuarioException) {
-			JOptionPane.showMessageDialog(null, falhaAutenticacaoUsuarioException.getMessage());
+			JOptionPane.showMessageDialog(null, falhaAutenticacaoUsuarioException.getMessage(), "Erro autenticação",
+					JOptionPane.ERROR_MESSAGE);
 		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Houve um erro inesperado no sistema");
+			JOptionPane.showMessageDialog(null, "Houve um erro inesperado no sistema", "Erro Sistema",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 		if (loginRealizadoComSucesso) {
+            JOptionPane.showMessageDialog(null, "Bem vindo " + UserSession.getInstance().getLoggedUser().getNome());
 			JHome jHome = new JHome();
 			jHome.abrirDialog();
 

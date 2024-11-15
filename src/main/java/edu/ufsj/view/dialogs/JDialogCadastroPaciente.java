@@ -4,6 +4,11 @@
  */
 package edu.ufsj.view.dialogs;
 
+import javax.swing.*;
+
+import edu.ufsj.controller.PacienteController;
+import edu.ufsj.model.Paciente;
+
 /**
  *
  * @author arthurd
@@ -170,9 +175,34 @@ public class JDialogCadastroPaciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
-    private void jCadastroPacienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroPacienteButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCadastroPacienteButtonActionPerformed
+	private void jCadastroPacienteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroPacienteButtonActionPerformed
+		// TODO add your handling code here:
+		String nome = jTextFieldNome.getText();
+		String cpf = jCpfTextField.getText();
+		String telefone = jTextFieldTelefone.getText();
+		String estado = jTextFieldEstado.getText();
+		String cidade = jTextFieldCidade.getText();
+		String numero = jTextFieldNumero.getText();
+
+		if (nome.isBlank() || cpf.isBlank()) {
+			JOptionPane.showMessageDialog(null, "O nome e cpf são obrigatórios");
+			return;
+		}
+
+		PacienteController pacienteController = new PacienteController();
+
+		Paciente paciente = new Paciente(nome, cpf, telefone, estado, cidade, numero);
+
+		boolean pacienteFoiCadastrado = pacienteController.cadastrarPaciente(paciente);
+
+		if (!pacienteFoiCadastrado) {
+			JOptionPane.showMessageDialog(null, "Erro ao cadastrar paciente", "Erro cadastro paciente",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(null, paciente.getNome() + " cadastrado com sucesso");
+			this.setVisible(false);
+		}
+	}// GEN-LAST:event_jCadastroPacienteButtonActionPerformed
 
     /**
      * @param args the command line arguments
