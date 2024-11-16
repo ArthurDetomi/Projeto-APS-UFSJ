@@ -8,15 +8,17 @@ import edu.ufsj.model.Paciente;
 
 public class PacienteDao implements GenericDao<Paciente> {
 
-	private Connection connection;
-
-	public PacienteDao() {
+	private Connection getConnection() {
+		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection(DataBaseConfig.getURL(), DataBaseConfig.getUsername(),
 					DataBaseConfig.getPassword());
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		return connection;
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class PacienteDao implements GenericDao<Paciente> {
 
 		int result = 0;
 
-		try {
+		try (Connection connection = getConnection()){
 			PreparedStatement createNewUsuarioStatement = connection.prepareStatement(CREATE_NEW_PACIENTE_QUERY);
 
 			createNewUsuarioStatement.setString(1, paciente.getNome());
@@ -42,8 +44,6 @@ public class PacienteDao implements GenericDao<Paciente> {
 			result = createNewUsuarioStatement.executeUpdate();
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			close();
 		}
 
 		return result == 1;
@@ -54,7 +54,7 @@ public class PacienteDao implements GenericDao<Paciente> {
 
 		Integer id = null;
 
-		try {
+		try (Connection connection = getConnection()){
 			PreparedStatement findByCPFStatement = connection.prepareStatement(FIND_BY_CPF_QUERY);
 
 			findByCPFStatement.setString(1, cpf);
@@ -66,19 +66,10 @@ public class PacienteDao implements GenericDao<Paciente> {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			close();
 		}
 
 		return id != null;
 	}
 
-	public void close() {
-		try {
-			connection.close();
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		}
-	}
 
 }

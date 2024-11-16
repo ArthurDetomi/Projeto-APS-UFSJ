@@ -9,15 +9,17 @@ import edu.ufsj.model.Usuario;
 
 public class UsuarioDao implements GenericDao<Usuario> {
 
-	private Connection connection;
-
-	public UsuarioDao() {
+	private Connection getConnection() {
+		Connection connection = null;
 		try {
 			connection = DriverManager.getConnection(DataBaseConfig.getURL(), DataBaseConfig.getUsername(),
 					DataBaseConfig.getPassword());
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		return connection;
 	}
 
 	@Override
@@ -27,7 +29,7 @@ public class UsuarioDao implements GenericDao<Usuario> {
 
 		int result = 0;
 
-		try {
+		try (Connection connection = getConnection()) {
 			PreparedStatement createNewUsuarioStatement = connection.prepareStatement(CREATE_NEW_USUARIO_QUERY);
 
 			createNewUsuarioStatement.setString(1, usuario.getNome());
@@ -42,8 +44,6 @@ public class UsuarioDao implements GenericDao<Usuario> {
 			result = createNewUsuarioStatement.executeUpdate();
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			close();
 		}
 
 		return result == 1;
@@ -74,7 +74,7 @@ public class UsuarioDao implements GenericDao<Usuario> {
 
 		Usuario usuario = null;
 
-		try {
+		try (Connection connection = getConnection()) {
 			PreparedStatement findByLoginAndPasswordStatement = connection
 					.prepareStatement(FIND_BY_LOGIN_AND_PASSWORD_QUERY);
 
@@ -88,8 +88,6 @@ public class UsuarioDao implements GenericDao<Usuario> {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			close();
 		}
 
 		return usuario;
@@ -99,7 +97,8 @@ public class UsuarioDao implements GenericDao<Usuario> {
 		final String FIND_BY_LOGIN_QUERY = "SELECT id FROM usuarios WHERE login = ?";
 
 		Integer id = null;
-		try {
+
+		try (Connection connection = getConnection()) {
 			PreparedStatement findByLoginStatement = connection.prepareStatement(FIND_BY_LOGIN_QUERY);
 
 			findByLoginStatement.setString(1, login);
@@ -111,26 +110,16 @@ public class UsuarioDao implements GenericDao<Usuario> {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			close();
 		}
 
 		return id != null;
-	}
-
-	public void close() {
-		try {
-			connection.close();
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		}
 	}
 
 	public boolean existsByCpf(String cpf) {
 		final String FIND_BY_CPF_QUERY = "SELECT id FROM usuarios WHERE cpf = ?";
 
 		Integer id = null;
-		try {
+		try (Connection connection = getConnection()) {
 			PreparedStatement findByCPFStatement = connection.prepareStatement(FIND_BY_CPF_QUERY);
 
 			findByCPFStatement.setString(1, cpf);
@@ -142,8 +131,6 @@ public class UsuarioDao implements GenericDao<Usuario> {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			close();
 		}
 
 		return id != null;
