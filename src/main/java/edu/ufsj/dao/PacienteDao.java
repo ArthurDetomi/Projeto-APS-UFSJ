@@ -49,6 +49,30 @@ public class PacienteDao implements GenericDao<Paciente> {
 		return result == 1;
 	}
 
+	public boolean existsByCpf(String cpf) {
+		final String FIND_BY_CPF_QUERY = "SELECT id FROM pacientes WHERE cpf = ?";
+
+		Integer id = null;
+
+		try {
+			PreparedStatement findByCPFStatement = connection.prepareStatement(FIND_BY_CPF_QUERY);
+
+			findByCPFStatement.setString(1, cpf);
+
+			ResultSet resultSet = findByCPFStatement.executeQuery();
+
+			if (resultSet.next()) {
+				id = resultSet.getInt("id");
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return id != null;
+	}
+
 	public void close() {
 		try {
 			connection.close();

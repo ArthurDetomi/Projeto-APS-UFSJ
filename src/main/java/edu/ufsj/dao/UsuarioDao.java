@@ -95,11 +95,57 @@ public class UsuarioDao implements GenericDao<Usuario> {
 		return usuario;
 	}
 
+	public boolean existsByLogin(String login) {
+		final String FIND_BY_LOGIN_QUERY = "SELECT id FROM usuarios WHERE login = ?";
+
+		Integer id = null;
+		try {
+			PreparedStatement findByLoginStatement = connection.prepareStatement(FIND_BY_LOGIN_QUERY);
+
+			findByLoginStatement.setString(1, login);
+
+			ResultSet resultSet = findByLoginStatement.executeQuery();
+
+			if (resultSet.next()) {
+				id = resultSet.getInt("id");
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return id != null;
+	}
+
 	public void close() {
 		try {
 			connection.close();
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
+	}
+
+	public boolean existsByCpf(String cpf) {
+		final String FIND_BY_CPF_QUERY = "SELECT id FROM usuarios WHERE cpf = ?";
+
+		Integer id = null;
+		try {
+			PreparedStatement findByCPFStatement = connection.prepareStatement(FIND_BY_CPF_QUERY);
+
+			findByCPFStatement.setString(1, cpf);
+
+			ResultSet resultSet = findByCPFStatement.executeQuery();
+
+			if (resultSet.next()) {
+				id = resultSet.getInt("id");
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		} finally {
+			close();
+		}
+
+		return id != null;
 	}
 }

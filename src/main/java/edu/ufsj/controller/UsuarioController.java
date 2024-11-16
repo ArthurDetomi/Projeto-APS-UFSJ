@@ -2,15 +2,16 @@ package edu.ufsj.controller;
 
 import edu.ufsj.dao.UsuarioDao;
 import edu.ufsj.exception.FalhaAutenticacaoUsuarioException;
+import edu.ufsj.exception.UsuarioJaExisteException;
 import edu.ufsj.model.Usuario;
 import edu.ufsj.service.UserSession;
 
 public class UsuarioController {
 
-	private UsuarioDao usuarioDao;
+	private final UsuarioDao usuarioDao = new UsuarioDao();
 
 	public void realizarLogin(String login, String password) throws FalhaAutenticacaoUsuarioException {
-		Usuario usuario = getUsuarioDao().findByLoginAndPassword(login, password);
+		Usuario usuario = usuarioDao.findByLoginAndPassword(login, password);
 
 		if (usuario == null) {
 			throw new FalhaAutenticacaoUsuarioException();
@@ -19,15 +20,16 @@ public class UsuarioController {
 		UserSession.getInstance().setLoggedUser(usuario);
 	}
 
-	private UsuarioDao getUsuarioDao() {
-		if (usuarioDao == null) {
-			this.usuarioDao = new UsuarioDao();
-		}
-		return usuarioDao;
-	}
 
-	public boolean cadastrarUsuario(Usuario usuarioAtendente) {
-		boolean success = getUsuarioDao().create(usuarioAtendente);
-		return success;
+	public boolean cadastrarUsuario(Usuario usuario) throws UsuarioJaExisteException {
+		if (usuarioDao.existsByLogin(usuario.getLogin())) {
+			throw new UsuarioJaExisteException("Já existe um usuário com mesmo Login");
+		}
+
+		if (usuarioDao.existsByCpf(usuario.getCpf())) {
+			throw new UsuarioJaExisteException("Já existe um usuário com mesmo CPF");
+		}
+
+		return usuarioDao.create(usuario);
 	}
 }

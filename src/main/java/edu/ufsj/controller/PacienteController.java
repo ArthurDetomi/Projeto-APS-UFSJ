@@ -1,20 +1,19 @@
 package edu.ufsj.controller;
 
 import edu.ufsj.dao.PacienteDao;
+import edu.ufsj.exception.PacienteJaExisteException;
 import edu.ufsj.model.Paciente;
 
 public class PacienteController {
 
-	private PacienteDao pacienteDao;
+	private final PacienteDao pacienteDao = new PacienteDao();
 
-	public boolean cadastrarPaciente(Paciente paciente) {
-		return getPacienteDao().create(paciente);
-	}
-
-	public PacienteDao getPacienteDao() {
-		if (pacienteDao == null) {
-			pacienteDao = new PacienteDao();
+	public boolean cadastrarPaciente(Paciente paciente) throws PacienteJaExisteException {
+		if (pacienteDao.existsByCpf(paciente.getCpf())) {
+			throw new PacienteJaExisteException("Já existe um paciente com mesmo CPF cadastrado");
 		}
-		return pacienteDao;
+
+		return pacienteDao.create(paciente);
 	}
+
 }

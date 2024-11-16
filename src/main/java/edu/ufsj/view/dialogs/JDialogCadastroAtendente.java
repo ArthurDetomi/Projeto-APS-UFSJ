@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import javax.swing.*;
 
 import edu.ufsj.controller.UsuarioController;
+import edu.ufsj.exception.UsuarioJaExisteException;
 import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
 import edu.ufsj.utils.CpfUtil;
@@ -216,17 +217,20 @@ public class JDialogCadastroAtendente extends JDialogGeneric {
 		}
 
         Usuario usuarioAtendente = new Usuario(
-            login, password, cpf, nome, telefone, email, LocalDateTime.now(), TipoUsuario.ATENDENTE
-        );
+				login, password, cpf, nome, telefone, email, LocalDateTime.now(), TipoUsuario.ATENDENTE);
 
-        UsuarioController usuarioController = new UsuarioController();
+		UsuarioController usuarioController = new UsuarioController();
 
-        boolean usuarioCadastradoComSucesso;
+		boolean usuarioCadastradoComSucesso;
 
-        try {
-            usuarioCadastradoComSucesso = usuarioController.cadastrarUsuario(usuarioAtendente);
-        } catch (Exception ex) {
-            mostrarMensagemErroInesperado();
+		try {
+			usuarioCadastradoComSucesso = usuarioController.cadastrarUsuario(usuarioAtendente);
+		} catch (UsuarioJaExisteException usuarioJaExisteException) {
+			JOptionPane.showMessageDialog(null, usuarioJaExisteException.getMessage(), "Usuario já existe error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		} catch (Exception ex) {
+			mostrarMensagemErroInesperado();
             return;
 		}
 
