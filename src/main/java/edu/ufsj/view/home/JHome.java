@@ -4,11 +4,13 @@
  */
 package edu.ufsj.view.home;
 
+import edu.ufsj.service.UserSession;
 import edu.ufsj.view.dialogs.JDialogCadastroConsulta;
 import edu.ufsj.view.dialogs.JDialogCadastroMedico;
 import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
-import edu.ufsj.view.dialogs.jDialogCadastroAtendente;
-import javax.swing.JFrame;
+import edu.ufsj.view.dialogs.JDialogCadastroAtendente;
+
+import javax.swing.*;
 
 /**
  *
@@ -166,14 +168,18 @@ public class JHome extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+		pack();
+	}// </editor-fold>//GEN-END:initComponents
 
-    private void jCadastroPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroPacienteActionPerformed
+	private void jCadastroPacienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroPacienteActionPerformed
+		if (!UserSession.getInstance().isUsuarioLogadoPodeCadastrarPaciente()) {
+			JOptionPane.showMessageDialog(null, "Somente usuário atendente e admin podem cadastrar pacientes",
+					"Erro permissão", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
        JDialogCadastroPaciente jDialogCadastroPaciente = new JDialogCadastroPaciente();
-       jDialogCadastroPaciente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-       jDialogCadastroPaciente.setLocationRelativeTo(null); // Centraliza o JFrame
-       jDialogCadastroPaciente.setVisible(true);
+       jDialogCadastroPaciente.abrirDialog();
     }//GEN-LAST:event_jCadastroPacienteActionPerformed
 
     private void jListarAgendaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarAgendaButtonActionPerformed
@@ -194,23 +200,23 @@ public class JHome extends javax.swing.JFrame {
 
     private void jCadastroMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroMedicoActionPerformed
         JDialogCadastroMedico jDialogCadastroMedico = new JDialogCadastroMedico();
-        jDialogCadastroMedico.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jDialogCadastroMedico.setLocationRelativeTo(null);
-        jDialogCadastroMedico.setVisible(true);
-    }//GEN-LAST:event_jCadastroMedicoActionPerformed
+		jDialogCadastroMedico.abrirDialog();
+	}// GEN-LAST:event_jCadastroMedicoActionPerformed
 
-    private void jCadastroAtendenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroAtendenteActionPerformed
-        jDialogCadastroAtendente jDialogCadastroAtendente = new jDialogCadastroAtendente();
-        jDialogCadastroAtendente.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jDialogCadastroAtendente.setLocationRelativeTo(null);
-        jDialogCadastroAtendente.setVisible(true);
+	private void jCadastroAtendenteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroAtendenteActionPerformed
+		if (!UserSession.getInstance().isUsuarioLogadoPodeCadastrarAtendente()) {
+			JOptionPane.showMessageDialog(null, "Somente usuário admin pode cadastrar atendentes", "Permissão Error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+        JDialogCadastroAtendente jDialogCadastroAtendente = new JDialogCadastroAtendente();
+        jDialogCadastroAtendente.abrirDialog();
     }//GEN-LAST:event_jCadastroAtendenteActionPerformed
 
     private void jCadastroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroConsultaActionPerformed
         JDialogCadastroConsulta jDialogCadastroConsulta = new JDialogCadastroConsulta();
-        jDialogCadastroConsulta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        jDialogCadastroConsulta.setLocationRelativeTo(null);
-        jDialogCadastroConsulta.setVisible(true);
+        jDialogCadastroConsulta.abrirDialog();
     }//GEN-LAST:event_jCadastroConsultaActionPerformed
 
     /**

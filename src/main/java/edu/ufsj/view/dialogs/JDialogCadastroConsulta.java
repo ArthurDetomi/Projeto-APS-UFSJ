@@ -8,7 +8,7 @@ package edu.ufsj.view.dialogs;
  *
  * @author arthurdetomi
  */
-public class JDialogCadastroConsulta extends javax.swing.JFrame {
+public class JDialogCadastroConsulta extends JDialogGeneric {
 
     /**
      * Creates new form JCadastroConsultaDialog

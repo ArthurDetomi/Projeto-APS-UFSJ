@@ -3,9 +3,6 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[500, 500]"/>
-    </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -71,9 +68,9 @@
                       <Component id="jTextFieldNumero" alignment="0" max="32767" attributes="0"/>
                       <Component id="jTextFieldEstado" alignment="0" max="32767" attributes="0"/>
                       <Component id="jTextFieldNome" alignment="1" max="32767" attributes="0"/>
-                      <Component id="jTextFieldTelefone" alignment="1" max="32767" attributes="0"/>
                       <Component id="jTextFieldCidade" alignment="1" max="32767" attributes="0"/>
                       <Component id="jCpfTextField" max="32767" attributes="0"/>
+                      <Component id="jTextFieldTelefone" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               </Group>
@@ -167,8 +164,6 @@
             <Property name="text" type="java.lang.String" value="Estado:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldTelefone">
-        </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCidade">
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNumero">
@@ -201,6 +196,13 @@
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
               <Format format="###.###.###-##" subtype="-1" type="5"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="jTextFieldTelefone">
+          <Properties>
+            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
+              <Format format="(##)#####-####" subtype="-1" type="5"/>
             </Property>
           </Properties>
         </Component>

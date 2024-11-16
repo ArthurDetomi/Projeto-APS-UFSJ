@@ -25,4 +25,9 @@ public class UsuarioController {
 		}
 		return usuarioDao;
 	}
+
+	public boolean cadastrarUsuario(Usuario usuarioAtendente) {
+		boolean success = getUsuarioDao().create(usuarioAtendente);
+		return success;
+	}
 }
