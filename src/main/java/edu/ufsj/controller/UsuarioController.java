@@ -22,7 +22,7 @@ public class UsuarioController {
 
 
 	public boolean cadastrarUsuario(Usuario usuario) throws UsuarioJaExisteException {
-		if (usuarioDao.existsByLogin(usuario.getLogin())) {
+		if (usuarioDao.findIdByLogin(usuario.getLogin()) != null) {
 			throw new UsuarioJaExisteException("Já existe um usuário com mesmo Login");
 		}
 

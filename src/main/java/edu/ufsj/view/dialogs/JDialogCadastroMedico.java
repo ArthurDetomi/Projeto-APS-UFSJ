@@ -5,6 +5,17 @@ package edu.ufsj.view.dialogs;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import edu.ufsj.controller.MedicoController;
+import edu.ufsj.exception.UsuarioJaExisteException;
+import edu.ufsj.model.Medico;
+import edu.ufsj.model.TipoUsuario;
+import edu.ufsj.model.Usuario;
+import edu.ufsj.utils.CpfUtil;
+import edu.ufsj.utils.EmailUtil;
+
+import javax.swing.*;
+import java.time.LocalDateTime;
+
 /**
  *
  * @author arthurdetomi
@@ -32,8 +43,8 @@ public class JDialogCadastroMedico extends JDialogGeneric {
         jLoginTextField = new javax.swing.JTextField();
         jPasswordField = new javax.swing.JPasswordField();
         jCrmTextField = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        jNomeTextField = new javax.swing.JTextField();
+        jEmailTextField = new javax.swing.JTextField();
         jCadastroMedicoButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -44,7 +55,7 @@ public class JDialogCadastroMedico extends JDialogGeneric {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jCpfTextField = new javax.swing.JFormattedTextField();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jTelefoneTextField = new javax.swing.JFormattedTextField();
 
         jTextField7.setText("jTextField7");
 
@@ -63,6 +74,11 @@ public class JDialogCadastroMedico extends JDialogGeneric {
         jCadastroMedicoButton.setBackground(new java.awt.Color(102, 153, 255));
         jCadastroMedicoButton.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
         jCadastroMedicoButton.setText("Cadastrar");
+        jCadastroMedicoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastroMedicoButtonActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
         jLabel1.setText("Cadastro de Médico");
@@ -88,7 +104,7 @@ public class JDialogCadastroMedico extends JDialogGeneric {
         }
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+            jTelefoneTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -112,19 +128,19 @@ public class JDialogCadastroMedico extends JDialogGeneric {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(35, 35, 35)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCpfTextField)
-                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.TRAILING)))))
+                                    .addComponent(jTelefoneTextField, javax.swing.GroupLayout.Alignment.TRAILING)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLoginTextField)
                             .addComponent(jPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                             .addComponent(jCrmTextField)
-                            .addComponent(jTextField4))))
+                            .addComponent(jNomeTextField))))
                 .addGap(29, 29, 29))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 98, Short.MAX_VALUE)
@@ -159,15 +175,15 @@ public class JDialogCadastroMedico extends JDialogGeneric {
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jNomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTelefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jEmailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(68, 68, 68)
                 .addComponent(jCadastroMedicoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -191,6 +207,62 @@ public class JDialogCadastroMedico extends JDialogGeneric {
     private void jLoginTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jLoginTextFieldActionPerformed
+
+	private void jCadastroMedicoButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroMedicoButtonActionPerformed
+		String login = jLoginTextField.getText();
+		String password = jPasswordField.getText();
+		String cpf = jCpfTextField.getText();
+		String nome = jNomeTextField.getText();
+		String telefone = jTelefoneTextField.getText();
+		String email = jEmailTextField.getText();
+		String crm = jCrmTextField.getText();
+
+		if (login.isBlank() || password.isBlank() || cpf.isBlank() || nome.isBlank() || crm.isBlank()) {
+			JOptionPane.showMessageDialog(null, "Login, password, cpf, crm e nome são obrigatórios",
+					"Erro preenchimento", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		if (!CpfUtil.isValidCpf(cpf)) {
+			mostrarMensagemCpfInvalido();
+			return;
+		}
+
+		if (login.contains(" ")) {
+			mostrarMensagemLoginInvalido();
+			return;
+		}
+
+		if (!EmailUtil.isEmailValid(email)) {
+			mostrarMensagemEmailInvalido();
+			return;
+		}
+
+		MedicoController medicoController = new MedicoController();
+
+		boolean medicoFoiCadastrado;
+
+		Medico medico = new Medico(login, password, cpf, nome, telefone, email, LocalDateTime.now(), crm);
+
+		try {
+			medicoFoiCadastrado = medicoController.cadastrarMedico(medico);
+		} catch (UsuarioJaExisteException usuarioJaExisteException) {
+			JOptionPane.showMessageDialog(null, usuarioJaExisteException.getMessage(), "Usuario já existe error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		} catch (Exception exception) {
+			mostrarMensagemErroInesperado();
+			return;
+		}
+
+		if (medicoFoiCadastrado) {
+			JOptionPane.showMessageDialog(null, "O médico " + medico.getNome() + " foi cadastrado com sucesso!");
+			this.setVisible(false);
+		} else {
+			JOptionPane.showMessageDialog(null, "Erro no cadastro de médico", "Erro cadastro",
+					JOptionPane.ERROR_MESSAGE);
+		}
+	}// GEN-LAST:event_jCadastroMedicoButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,7 +303,7 @@ public class JDialogCadastroMedico extends JDialogGeneric {
     private javax.swing.JButton jCadastroMedicoButton;
     private javax.swing.JFormattedTextField jCpfTextField;
     private javax.swing.JTextField jCrmTextField;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JTextField jEmailTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -241,10 +313,10 @@ public class JDialogCadastroMedico extends JDialogGeneric {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jLoginTextField;
+    private javax.swing.JTextField jNomeTextField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JFormattedTextField jTelefoneTextField;
     private javax.swing.JTextField jTextField7;
     // End of variables declaration//GEN-END:variables
 }

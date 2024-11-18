@@ -198,7 +198,13 @@ public class JHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuCadastroActionPerformed
 
-    private void jCadastroMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroMedicoActionPerformed
+	private void jCadastroMedicoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroMedicoActionPerformed
+		if (!UserSession.getInstance().isUsuarioLogadoPodeCadastrarMedico()) {
+			JOptionPane.showMessageDialog(null, "Somente usuário admin e atendente podem cadastrar médicos",
+					"Permissão Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
         JDialogCadastroMedico jDialogCadastroMedico = new JDialogCadastroMedico();
 		jDialogCadastroMedico.abrirDialog();
 	}// GEN-LAST:event_jCadastroMedicoActionPerformed

@@ -7,20 +7,9 @@ import edu.ufsj.config.DataBaseConfig;
 import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
 
-public class UsuarioDao implements GenericDao<Usuario> {
+public class UsuarioDao extends  AbstractGenericDao implements GenericDao<Usuario> {
 
-	private Connection getConnection() {
-		Connection connection = null;
-		try {
-			connection = DriverManager.getConnection(DataBaseConfig.getURL(), DataBaseConfig.getUsername(),
-					DataBaseConfig.getPassword());
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return connection;
-	}
+	private final String FIND_BY_LOGIN_QUERY = "SELECT id FROM usuarios WHERE login = ?";
 
 	@Override
 	public boolean create(Usuario usuario) {
@@ -93,9 +82,11 @@ public class UsuarioDao implements GenericDao<Usuario> {
 		return usuario;
 	}
 
-	public boolean existsByLogin(String login) {
-		final String FIND_BY_LOGIN_QUERY = "SELECT id FROM usuarios WHERE login = ?";
-
+	/**
+	 * @param login
+	 * @return
+	 */
+	public Integer findIdByLogin(String login) {
 		Integer id = null;
 
 		try (Connection connection = getConnection()) {
@@ -112,7 +103,7 @@ public class UsuarioDao implements GenericDao<Usuario> {
 			sqlException.printStackTrace();
 		}
 
-		return id != null;
+		return id;
 	}
 
 	public boolean existsByCpf(String cpf) {
