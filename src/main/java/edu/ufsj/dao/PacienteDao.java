@@ -2,6 +2,9 @@ package edu.ufsj.dao;
 
 import java.sql.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.ufsj.config.DataBaseConfig;
 import edu.ufsj.model.Paciente;
@@ -30,7 +33,7 @@ public class PacienteDao implements GenericDao<Paciente> {
 
 		int result = 0;
 
-		try (Connection connection = getConnection()){
+		try (Connection connection = getConnection()) {
 			PreparedStatement createNewUsuarioStatement = connection.prepareStatement(CREATE_NEW_PACIENTE_QUERY);
 
 			createNewUsuarioStatement.setString(1, paciente.getNome());
@@ -54,7 +57,7 @@ public class PacienteDao implements GenericDao<Paciente> {
 
 		Integer id = null;
 
-		try (Connection connection = getConnection()){
+		try (Connection connection = getConnection()) {
 			PreparedStatement findByCPFStatement = connection.prepareStatement(FIND_BY_CPF_QUERY);
 
 			findByCPFStatement.setString(1, cpf);
@@ -71,5 +74,43 @@ public class PacienteDao implements GenericDao<Paciente> {
 		return id != null;
 	}
 
+	private Paciente extractPacienteByResultSet(ResultSet resultSet) throws SQLException {
+		Integer id = resultSet.getInt("id");
+		String nome = resultSet.getString("nome");
+		String telefone = resultSet.getString("telefone");
+		String cidade = resultSet.getString("cidade");
+		String estado = resultSet.getString("estado");
+		String numero = resultSet.getString("numero");
+		Timestamp editadoTimestamp = resultSet.getTimestamp("editado");
+		Timestamp cadastradoTimestamp = resultSet.getTimestamp("cadastrado");
+		String cpf = resultSet.getString("cpf");
+
+		LocalDateTime cadastrado = (cadastradoTimestamp == null) ? null : cadastradoTimestamp.toLocalDateTime();
+		LocalDateTime editado = (editadoTimestamp == null) ? null : editadoTimestamp.toLocalDateTime();
+
+		return new Paciente(id, cpf, nome, telefone, cidade, estado, numero, cadastrado, editado);
+	}
+
+	public List<Paciente> findAll() {
+		final String FIND_ALL_QUERY = "SELECT * FROM pacientes ORDER BY nome ASC";
+
+		List<Paciente> pacientes = new ArrayList<>();
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement findAllStatement = connection.prepareStatement(FIND_ALL_QUERY);
+
+			ResultSet resultSet = findAllStatement.executeQuery();
+
+			while (resultSet.next()) {
+				Paciente paciente = extractPacienteByResultSet(resultSet);
+
+				pacientes.add(paciente);
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return pacientes;
+	}
 
 }

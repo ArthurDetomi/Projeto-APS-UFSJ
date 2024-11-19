@@ -4,6 +4,8 @@ import edu.ufsj.dao.PacienteDao;
 import edu.ufsj.exception.PacienteJaExisteException;
 import edu.ufsj.model.Paciente;
 
+import java.util.List;
+
 public class PacienteController {
 
 	private final PacienteDao pacienteDao = new PacienteDao();
@@ -14,6 +16,10 @@ public class PacienteController {
 		}
 
 		return pacienteDao.create(paciente);
+	}
+
+	public List<Paciente> listarPacientes() {
+		return pacienteDao.findAll();
 	}
 
 }

@@ -27,6 +27,18 @@ public class Paciente {
         this.numero = numero;
     }
 
+    public Paciente(Integer id, String cpf, String nome, String telefone, String cidade, String estado, String numero, LocalDateTime cadastrado, LocalDateTime editado) {
+        this.id = id;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.numero = numero;
+        this.cadastrado = cadastrado;
+        this.editado = editado;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

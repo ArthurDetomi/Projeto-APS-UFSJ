@@ -4,19 +4,26 @@
  */
 package edu.ufsj.view.home;
 
+import edu.ufsj.controller.PacienteController;
+import edu.ufsj.model.Paciente;
 import edu.ufsj.service.UserSession;
+import edu.ufsj.utils.TableDataModel;
 import edu.ufsj.view.dialogs.JDialogCadastroConsulta;
 import edu.ufsj.view.dialogs.JDialogCadastroMedico;
 import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
 import edu.ufsj.view.dialogs.JDialogCadastroAtendente;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 /**
  *
  * @author arthurd
  */
 public class JHome extends javax.swing.JFrame {
+
+    private TableDataModel modelo = new TableDataModel();
 
     /**
      * Creates new form JHome
@@ -41,9 +48,12 @@ public class JHome extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jAplicarFiltroBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jListarPacientesButton = new javax.swing.JButton();
-        jListarAtendentesButton = new javax.swing.JButton();
-        jListarMedicosButton = new javax.swing.JButton();
+        jListaAtendentesButton = new javax.swing.JButton();
+        jListaMedicosButton = new javax.swing.JButton();
+        jExcluirRowButton = new javax.swing.JButton();
+        jSearchTextField = new javax.swing.JTextField();
+        jBuscaDadosButton = new javax.swing.JButton();
+        jListaPacientesButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastro = new javax.swing.JMenu();
@@ -84,7 +94,7 @@ public class JHome extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTabelaListagens);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 770, 520));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 830, 550));
 
         jLabel2.setText("FILTROS:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
@@ -95,19 +105,28 @@ public class JHome extends javax.swing.JFrame {
         jLabel3.setText("LISTAR:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
 
-        jListarPacientesButton.setText("Pacientes");
-        jListarPacientesButton.addActionListener(new java.awt.event.ActionListener() {
+        jListaAtendentesButton.setText("Atendentes");
+        getContentPane().add(jListaAtendentesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 180, -1));
+
+        jListaMedicosButton.setText("Médicos");
+        getContentPane().add(jListaMedicosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 180, -1));
+
+        jExcluirRowButton.setText("Excluir");
+        getContentPane().add(jExcluirRowButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 80, 120, 50));
+
+        jSearchTextField.setToolTipText("Pesquise por nome ou CPF");
+        getContentPane().add(jSearchTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 510, 50));
+
+        jBuscaDadosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/lupa.png"))); // NOI18N
+        getContentPane().add(jBuscaDadosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 80, 70, 50));
+
+        jListaPacientesButton.setText("Pacientes");
+        jListaPacientesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jListarPacientesButtonActionPerformed(evt);
+                jListaPacientesButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jListarPacientesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 180, -1));
-
-        jListarAtendentesButton.setText("Atendentes");
-        getContentPane().add(jListarAtendentesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 180, -1));
-
-        jListarMedicosButton.setText("Médicos");
-        getContentPane().add(jListarMedicosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 180, -1));
+        getContentPane().add(jListaPacientesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 180, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/background-home.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -168,8 +187,8 @@ public class JHome extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-		pack();
-	}// </editor-fold>//GEN-END:initComponents
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
 	private void jCadastroPacienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroPacienteActionPerformed
 		if (!UserSession.getInstance().isUsuarioLogadoPodeCadastrarPaciente()) {
@@ -180,19 +199,46 @@ public class JHome extends javax.swing.JFrame {
 
        JDialogCadastroPaciente jDialogCadastroPaciente = new JDialogCadastroPaciente();
        jDialogCadastroPaciente.abrirDialog();
-    }//GEN-LAST:event_jCadastroPacienteActionPerformed
+    }                                                 
 
     private void jListarAgendaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarAgendaButtonActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jListarAgendaButtonActionPerformed
-
-    private void jListarPacientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarPacientesButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jListarPacientesButtonActionPerformed
-
+    
     private void jCadastroPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCadastroPacienteMouseClicked
         // TODO add your handling code here:
+
     }//GEN-LAST:event_jCadastroPacienteMouseClicked
+
+
+    private void atualizarTabelaComListaDePacientes() {
+        jTabelaListagens.setModel(modelo);
+
+        PacienteController pacienteController = new PacienteController();
+
+        List<Paciente> pacientes = pacienteController.listarPacientes();
+
+        String[] colunas = {"Nome", "CPF", "Telefone", "Cidade", "Estado", "Número"};
+        Object[][] dados = new Object[pacientes.size()][colunas.length];
+
+        int i = 0;
+        for (Paciente paciente : pacientes) {
+            Object[] row = new Object[colunas.length];
+            row[0] = paciente.getNome();
+            row[1] = paciente.getCpf();
+            row[2] = paciente.getTelefone();
+            row[3] = paciente.getCidade();
+            row[4] = paciente.getEstado();
+            row[5] = paciente.getNumero();
+
+            dados[i] = row;
+            i++;
+        }
+
+
+        modelo.setData(colunas, dados);
+    }
 
     private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
         // TODO add your handling code here:
@@ -218,12 +264,17 @@ public class JHome extends javax.swing.JFrame {
 
         JDialogCadastroAtendente jDialogCadastroAtendente = new JDialogCadastroAtendente();
         jDialogCadastroAtendente.abrirDialog();
-    }//GEN-LAST:event_jCadastroAtendenteActionPerformed
+    }                                                  
 
     private void jCadastroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroConsultaActionPerformed
         JDialogCadastroConsulta jDialogCadastroConsulta = new JDialogCadastroConsulta();
         jDialogCadastroConsulta.abrirDialog();
     }//GEN-LAST:event_jCadastroConsultaActionPerformed
+
+    private void jListaPacientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaPacientesButtonActionPerformed
+        // TODO add your handling code here:
+        atualizarTabelaComListaDePacientes();
+    }//GEN-LAST:event_jListaPacientesButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -268,21 +319,24 @@ public class JHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> jAplicarFiltroBox;
+    private javax.swing.JButton jBuscaDadosButton;
     private javax.swing.JMenuItem jCadastroAtendente;
     private javax.swing.JMenuItem jCadastroConsulta;
     private javax.swing.JMenuItem jCadastroMedico;
     private javax.swing.JMenuItem jCadastroPaciente;
+    private javax.swing.JButton jExcluirRowButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jListaAtendentesButton;
+    private javax.swing.JButton jListaMedicosButton;
+    private javax.swing.JButton jListaPacientesButton;
     private javax.swing.JButton jListarAgendaButton;
-    private javax.swing.JButton jListarAtendentesButton;
     private javax.swing.JButton jListarAtendimentosButton;
-    private javax.swing.JButton jListarMedicosButton;
-    private javax.swing.JButton jListarPacientesButton;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastro;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jSearchTextField;
     private javax.swing.JTable jTabelaListagens;
     // End of variables declaration//GEN-END:variables
 }
