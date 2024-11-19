@@ -68,4 +68,20 @@ public class MedicoDao extends AbstractGenericDao implements GenericDao<Medico> 
 		return medicos;
 	}
 
+	@Override
+	public boolean delete(Integer idMedico) {
+		final String DELETE_QUERY = "DELETE FROM medicos WHERE id = ?";
+
+		int result = 0;
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(DELETE_QUERY);
+			preparedStatement.setInt(1, idMedico);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return result == 1;
+	}
 }

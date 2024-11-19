@@ -22,4 +22,7 @@ public class PacienteController {
 		return pacienteDao.findAll();
 	}
 
+	public boolean excluirPaciente(Integer idPaciente) {
+		return pacienteDao.delete(idPaciente);
+	}
 }

@@ -304,8 +304,8 @@ public class JHome extends javax.swing.JFrame {
         atualizarTabelaComListaDeMedicos();
     }//GEN-LAST:event_jListaMedicosButtonActionPerformed
 
-    private void jExcluirRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExcluirRowButtonActionPerformed
-        int selectedRowIndex = jTabelaListagens.getSelectedRow();
+	private void jExcluirRowButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jExcluirRowButtonActionPerformed
+		int selectedRowIndex = jTabelaListagens.getSelectedRow();
 
 		if (selectedRowIndex < 0) {
 			JOptionPane.showMessageDialog(null, "Nenhum dado foi selecionado para exclusão", "Exclusão error",
@@ -313,34 +313,82 @@ public class JHome extends javax.swing.JFrame {
 			return;
 		}
 
-        AbstractTableModel currentTableModel = (AbstractTableModel) jTabelaListagens.getModel();
+		AbstractTableModel currentTableModel = (AbstractTableModel) jTabelaListagens.getModel();
 
-        boolean deletionSuccess;
+		boolean deletionSuccess;
 
-        if (currentTableModel instanceof UsuarioTableModel) {
-            UsuarioTableModel usuarioTableModel = (UsuarioTableModel) jTabelaListagens.getModel();
+		if (currentTableModel instanceof UsuarioTableModel) {
+			UsuarioTableModel usuarioTableModel = (UsuarioTableModel) jTabelaListagens.getModel();
 
-            Integer idUsuario = usuarioTableModel.getEntityId(selectedRowIndex);
+			Integer idUsuario = usuarioTableModel.getEntityId(selectedRowIndex);
 
-            TipoUsuario tipoUsuario = usuarioTableModel.getTipoUsuario(selectedRowIndex);
+			TipoUsuario tipoUsuario = usuarioTableModel.getTipoUsuario(selectedRowIndex);
 
-            deletionSuccess = usuarioController.excluirUsuario(idUsuario);
+			if (!UserSession.getInstance().isUsuarioPodeExcluirByTipo(tipoUsuario)) {
+				JOptionPane.showMessageDialog(null, "Você não possui permissão para excluir esse usuário",
+						"Permissão Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 
-            String cpf = usuarioTableModel.getValueAt(selectedRowIndex, 1).toString();
+			deletionSuccess = usuarioController.excluirUsuario(idUsuario);
 
-            if (deletionSuccess) {
+			String cpf = usuarioTableModel.getValueAt(selectedRowIndex, 1).toString();
+
+			if (deletionSuccess) {
 				JOptionPane.showMessageDialog(null, "Usuario com cpf " + cpf + " foi deletado com sucesso");
 				atualizarTabelaComListaDeAtendentes();
 			} else {
 				JOptionPane.showMessageDialog(null, "Erro ao excluir usuário com cpf " + cpf, "Exclusão Error",
 						JOptionPane.ERROR_MESSAGE);
-                return;
 			}
-        } else if (currentTableModel instanceof MedicoTableModel) {
+		} else if (currentTableModel instanceof MedicoTableModel) {
+			MedicoTableModel medicoTableModel = (MedicoTableModel) jTabelaListagens.getModel();
 
-        } else if (currentTableModel instanceof PacienteTableModel) {
+			Integer idUsuario = medicoTableModel.getEntityId(selectedRowIndex);
 
-        }
+			TipoUsuario tipoUsuario = medicoTableModel.getTipoUsuario(selectedRowIndex);
+
+			if (!UserSession.getInstance().isUsuarioPodeExcluirByTipo(tipoUsuario)) {
+				JOptionPane.showMessageDialog(null, "Você não possui permissão para excluir esse usuário",
+						"Permissão Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			deletionSuccess = medicoController.excluirMedico(idUsuario);
+
+			String cpf = medicoTableModel.getValueAt(selectedRowIndex, 1).toString();
+
+			if (deletionSuccess) {
+				JOptionPane.showMessageDialog(null, "Usuario com cpf " + cpf + " foi deletado com sucesso");
+				atualizarTabelaComListaDeMedicos();
+			} else {
+				JOptionPane.showMessageDialog(null, "Erro ao excluir usuário com cpf " + cpf, "Exclusão Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+		} else if (currentTableModel instanceof PacienteTableModel) {
+			PacienteTableModel pacienteTableModel = (PacienteTableModel) jTabelaListagens.getModel();
+
+			Integer idPaciente = pacienteTableModel.getEntityId(selectedRowIndex);
+
+			if (!UserSession.getInstance().isUsuarioPodeExcluirPaciente()) {
+				JOptionPane.showMessageDialog(null, "Você não possui permissão para excluir esse paciente",
+						"Permissão Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			deletionSuccess = pacienteController.excluirPaciente(idPaciente);
+
+			String cpf = pacienteTableModel.getValueAt(selectedRowIndex, 1).toString();
+
+			if (deletionSuccess) {
+				JOptionPane.showMessageDialog(null, "Paciente com cpf " + cpf + " foi deletado com sucesso");
+				atualizarTabelaComListaDePacientes();
+			} else {
+				JOptionPane.showMessageDialog(null, "Erro ao excluir paciente com cpf " + cpf, "Exclusão Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
     }//GEN-LAST:event_jExcluirRowButtonActionPerformed
 
     /**

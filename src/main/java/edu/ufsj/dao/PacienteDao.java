@@ -113,4 +113,22 @@ public class PacienteDao implements GenericDao<Paciente> {
 		return pacientes;
 	}
 
+	@Override
+	public boolean delete(Integer id) {
+		final String DELETE_QUERY = "DELETE FROM pacientes WHERE id = ?";
+
+		int result = 0;
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement deleteStatement = connection.prepareStatement(DELETE_QUERY);
+
+			deleteStatement.setInt(1, id);
+
+			result = deleteStatement.executeUpdate();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return result == 1;
+	}
 }

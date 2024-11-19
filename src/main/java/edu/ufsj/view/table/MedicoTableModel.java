@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import edu.ufsj.model.Medico;
+import edu.ufsj.model.TipoUsuario;
 
 public class MedicoTableModel extends AbstractTableModel {
 	private final String[] colunas = { "Nome", "CRM", "CPF", "E-mail", "Telefone", "Cadastrado" };
@@ -30,6 +31,14 @@ public class MedicoTableModel extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 		return colunas.length;
+	}
+
+	public Integer getEntityId(int rowIndex) {
+		return medicos.get(rowIndex).getId();
+	}
+
+	public TipoUsuario getTipoUsuario(int rowIndex) {
+		return medicos.get(rowIndex).getTipoUsuario();
 	}
 
 	@Override

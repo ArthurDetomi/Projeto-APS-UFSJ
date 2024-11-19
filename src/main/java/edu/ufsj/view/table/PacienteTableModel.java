@@ -1,39 +1,43 @@
 package edu.ufsj.view.table;
 
-import edu.ufsj.model.Paciente;
-
-import javax.swing.table.AbstractTableModel;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.swing.table.AbstractTableModel;
+
+import edu.ufsj.model.Paciente;
+
 public class PacienteTableModel extends AbstractTableModel {
 
-    private final String[] colunas = {"Nome", "CPF", "Telefone", "Cidade", "Estado", "Número", "Cadastrado"};
-    private final List<Paciente> pacientes;
+	private final String[] colunas = { "Nome", "CPF", "Telefone", "Cidade", "Estado", "Número", "Cadastrado" };
+	private final List<Paciente> pacientes;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    public PacienteTableModel(List<Paciente> pacientes) {
-        this.pacientes = pacientes;
-    }
+	public PacienteTableModel(List<Paciente> pacientes) {
+		this.pacientes = pacientes;
+	}
 
-    @Override
-    public int getRowCount() {
-        return pacientes.size();
-    }
+	@Override
+	public int getRowCount() {
+		return pacientes.size();
+	}
 
-    @Override
-    public int getColumnCount() {
-        return colunas.length;
-    }
+	@Override
+	public int getColumnCount() {
+		return colunas.length;
+	}
 
+	public Integer getEntityId(int rowIndex) {
+		return pacientes.get(rowIndex).getId();
+	}
 
-    @Override
-    public String getColumnName(int column) {
-        return colunas[column];
-    }
+	@Override
+	public String getColumnName(int column) {
+		return colunas[column];
+	}
 
-    @Override
+	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Paciente paciente = pacientes.get(rowIndex);
 
