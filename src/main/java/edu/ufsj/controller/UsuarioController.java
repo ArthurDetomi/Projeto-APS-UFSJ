@@ -40,4 +40,7 @@ public class UsuarioController {
 		return usuarioDao.findAllByTipoUsuario(TipoUsuario.ATENDENTE);
 	}
 
+    public boolean excluirUsuario(Integer idUsuario) {
+		return usuarioDao.delete(idUsuario);
+    }
 }

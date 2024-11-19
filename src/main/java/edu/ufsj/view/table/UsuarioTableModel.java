@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
 
 public class UsuarioTableModel extends AbstractTableModel {
@@ -31,6 +32,14 @@ public class UsuarioTableModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column) {
 		return colunas[column];
+	}
+
+	public Integer getEntityId(int rowIndex) {
+		return usuarios.get(rowIndex).getId();
+	}
+
+	public TipoUsuario getTipoUsuario(int rowIndex) {
+		return usuarios.get(rowIndex).getTipoUsuario();
 	}
 
 	@Override

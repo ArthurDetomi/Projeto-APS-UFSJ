@@ -149,4 +149,22 @@ public class UsuarioDao extends  AbstractGenericDao implements GenericDao<Usuari
 
 		return usuarios;
 	}
+
+	public boolean delete(Integer idUsuario) {
+		final String DELETE_BY_ID_QUERY = "DELETE FROM usuarios WHERE id = ?";
+
+		int result = 0;
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement deleteByIdStatement = connection.prepareStatement(DELETE_BY_ID_QUERY);
+
+			deleteByIdStatement.setInt(1, idUsuario);
+
+			result = deleteByIdStatement.executeUpdate();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return result == 1;
+	}
 }

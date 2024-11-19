@@ -38,6 +38,19 @@ public class UserSession {
 		return tipoUsuario.equals(TipoUsuario.ADMIN);
 	}
 
+	public boolean isUsuarioPodeExcluirByTipo(TipoUsuario tipoUsuario) {
+		TipoUsuario tipoUsuarioLogged = loggedUser.getTipoUsuario();
+
+		switch (tipoUsuario) {
+			case ATENDENTE:
+				return  tipoUsuarioLogged.equals(TipoUsuario.ADMIN);
+			case MEDICO:
+				return tipoUsuarioLogged.equals(TipoUsuario.ADMIN) || tipoUsuarioLogged.equals(TipoUsuario.ATENDENTE);
+		}
+
+		return false;
+	}
+
 	public Usuario getLoggedUser() {
 		return loggedUser;
 	}

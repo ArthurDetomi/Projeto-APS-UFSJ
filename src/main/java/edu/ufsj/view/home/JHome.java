@@ -9,6 +9,7 @@ import edu.ufsj.controller.PacienteController;
 import edu.ufsj.controller.UsuarioController;
 import edu.ufsj.model.Medico;
 import edu.ufsj.model.Paciente;
+import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
 import edu.ufsj.service.UserSession;
 import edu.ufsj.view.table.MedicoTableModel;
@@ -20,6 +21,8 @@ import edu.ufsj.view.dialogs.JDialogCadastroAtendente;
 import edu.ufsj.view.table.UsuarioTableModel;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 import java.util.List;
 
 /**
@@ -27,6 +30,10 @@ import java.util.List;
  * @author arthurd
  */
 public class JHome extends javax.swing.JFrame {
+
+    private PacienteController pacienteController = new PacienteController();
+    private MedicoController medicoController = new MedicoController();
+    private UsuarioController usuarioController = new UsuarioController();
 
     /**
      * Creates new form JHome
@@ -125,6 +132,11 @@ public class JHome extends javax.swing.JFrame {
         getContentPane().add(jListaMedicosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 180, -1));
 
         jExcluirRowButton.setText("Excluir");
+        jExcluirRowButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jExcluirRowButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(jExcluirRowButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 80, 120, 50));
 
         jSearchTextField.setToolTipText("Pesquise por nome ou CPF");
@@ -226,8 +238,6 @@ public class JHome extends javax.swing.JFrame {
 
 
     private void atualizarTabelaComListaDePacientes() {
-        PacienteController pacienteController = new PacienteController();
-
         List<Paciente> pacientes = pacienteController.listarPacientes();
 
         PacienteTableModel pacienteTableModel = new PacienteTableModel(pacientes);
@@ -236,8 +246,6 @@ public class JHome extends javax.swing.JFrame {
     }
 
     private void atualizarTabelaComListaDeAtendentes() {
-        UsuarioController usuarioController = new UsuarioController();
-
         List<Usuario> usuariosAtendentes = usuarioController.listarAtendentes();
 
         UsuarioTableModel usuarioTableModel = new UsuarioTableModel(usuariosAtendentes);
@@ -246,8 +254,6 @@ public class JHome extends javax.swing.JFrame {
     }
 
     private void atualizarTabelaComListaDeMedicos() {
-        MedicoController medicoController = new MedicoController();
-
         List<Medico> medicos = medicoController.listarMedicos();
 
         MedicoTableModel medicoTableModel = new MedicoTableModel(medicos);
@@ -297,6 +303,45 @@ public class JHome extends javax.swing.JFrame {
     private void jListaMedicosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaMedicosButtonActionPerformed
         atualizarTabelaComListaDeMedicos();
     }//GEN-LAST:event_jListaMedicosButtonActionPerformed
+
+    private void jExcluirRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExcluirRowButtonActionPerformed
+        int selectedRowIndex = jTabelaListagens.getSelectedRow();
+
+		if (selectedRowIndex < 0) {
+			JOptionPane.showMessageDialog(null, "Nenhum dado foi selecionado para exclusão", "Exclusão error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+        AbstractTableModel currentTableModel = (AbstractTableModel) jTabelaListagens.getModel();
+
+        boolean deletionSuccess;
+
+        if (currentTableModel instanceof UsuarioTableModel) {
+            UsuarioTableModel usuarioTableModel = (UsuarioTableModel) jTabelaListagens.getModel();
+
+            Integer idUsuario = usuarioTableModel.getEntityId(selectedRowIndex);
+
+            TipoUsuario tipoUsuario = usuarioTableModel.getTipoUsuario(selectedRowIndex);
+
+            deletionSuccess = usuarioController.excluirUsuario(idUsuario);
+
+            String cpf = usuarioTableModel.getValueAt(selectedRowIndex, 1).toString();
+
+            if (deletionSuccess) {
+				JOptionPane.showMessageDialog(null, "Usuario com cpf " + cpf + " foi deletado com sucesso");
+				atualizarTabelaComListaDeAtendentes();
+			} else {
+				JOptionPane.showMessageDialog(null, "Erro ao excluir usuário com cpf " + cpf, "Exclusão Error",
+						JOptionPane.ERROR_MESSAGE);
+                return;
+			}
+        } else if (currentTableModel instanceof MedicoTableModel) {
+
+        } else if (currentTableModel instanceof PacienteTableModel) {
+
+        }
+    }//GEN-LAST:event_jExcluirRowButtonActionPerformed
 
     /**
      * @param args the command line arguments
