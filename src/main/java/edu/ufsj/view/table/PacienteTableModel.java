@@ -11,7 +11,7 @@ public class PacienteTableModel extends AbstractTableModel {
     private final String[] colunas = {"Nome", "CPF", "Telefone", "Cidade", "Estado", "Número", "Cadastrado"};
     private final List<Paciente> pacientes;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public PacienteTableModel(List<Paciente> pacientes) {
         this.pacientes = pacientes;

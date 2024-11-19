@@ -106,6 +106,11 @@ public class JHome extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
 
         jListaAtendentesButton.setText("Atendentes");
+        jListaAtendentesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jListaAtendentesButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(jListaAtendentesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 180, -1));
 
         jListaMedicosButton.setText("Médicos");
@@ -267,6 +272,10 @@ public class JHome extends javax.swing.JFrame {
         // TODO add your handling code here:
         atualizarTabelaComListaDePacientes();
     }//GEN-LAST:event_jListaPacientesButtonActionPerformed
+
+    private void jListaAtendentesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaAtendentesButtonActionPerformed
+        atualizarTabelaComListaDeAtendentes();
+    }//GEN-LAST:event_jListaAtendentesButtonActionPerformed
 
     /**
      * @param args the command line arguments

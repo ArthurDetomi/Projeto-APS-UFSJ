@@ -9,10 +9,10 @@ import edu.ufsj.model.Usuario;
 
 public class UsuarioTableModel extends AbstractTableModel {
 
-	private final String[] colunas = { "Nome", "CPF", "E-mail", "Telefone", "cadastrado" };
+	private final String[] colunas = { "Nome", "CPF", "E-mail", "Telefone", "Cadastrado" };
 	private final List<Usuario> usuarios;
 
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
 	public UsuarioTableModel(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
@@ -26,6 +26,11 @@ public class UsuarioTableModel extends AbstractTableModel {
 	@Override
 	public int getColumnCount() {
 		return colunas.length;
+	}
+
+	@Override
+	public String getColumnName(int column) {
+		return colunas[column];
 	}
 
 	@Override

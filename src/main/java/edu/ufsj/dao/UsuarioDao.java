@@ -130,7 +130,7 @@ public class UsuarioDao extends  AbstractGenericDao implements GenericDao<Usuari
 	}
 
 	public List<Usuario> findAllByTipoUsuario(TipoUsuario tipoUsuario) {
-		final String FIND_ALL_BY_TIPO = "SELECT * FROM usuarios WHERE tipo_usuario = ?";
+		final String FIND_ALL_BY_TIPO = "SELECT * FROM usuarios WHERE tipo_usuario = ? ORDER BY nome ASC";
 
 		List<Usuario> usuarios = new ArrayList<>();
 
