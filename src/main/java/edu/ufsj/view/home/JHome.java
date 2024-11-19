@@ -4,11 +4,14 @@
  */
 package edu.ufsj.view.home;
 
+import edu.ufsj.controller.MedicoController;
 import edu.ufsj.controller.PacienteController;
 import edu.ufsj.controller.UsuarioController;
+import edu.ufsj.model.Medico;
 import edu.ufsj.model.Paciente;
 import edu.ufsj.model.Usuario;
 import edu.ufsj.service.UserSession;
+import edu.ufsj.view.table.MedicoTableModel;
 import edu.ufsj.view.table.PacienteTableModel;
 import edu.ufsj.view.dialogs.JDialogCadastroConsulta;
 import edu.ufsj.view.dialogs.JDialogCadastroMedico;
@@ -114,6 +117,11 @@ public class JHome extends javax.swing.JFrame {
         getContentPane().add(jListaAtendentesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 180, -1));
 
         jListaMedicosButton.setText("Médicos");
+        jListaMedicosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jListaMedicosButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(jListaMedicosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 180, -1));
 
         jExcluirRowButton.setText("Excluir");
@@ -237,6 +245,16 @@ public class JHome extends javax.swing.JFrame {
         jTabelaListagens.setModel(usuarioTableModel);
     }
 
+    private void atualizarTabelaComListaDeMedicos() {
+        MedicoController medicoController = new MedicoController();
+
+        List<Medico> medicos = medicoController.listarMedicos();
+
+        MedicoTableModel medicoTableModel = new MedicoTableModel(medicos);
+
+        jTabelaListagens.setModel(medicoTableModel);
+    }
+
     private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuCadastroActionPerformed
@@ -269,13 +287,16 @@ public class JHome extends javax.swing.JFrame {
     }//GEN-LAST:event_jCadastroConsultaActionPerformed
 
     private void jListaPacientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaPacientesButtonActionPerformed
-        // TODO add your handling code here:
         atualizarTabelaComListaDePacientes();
     }//GEN-LAST:event_jListaPacientesButtonActionPerformed
 
     private void jListaAtendentesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaAtendentesButtonActionPerformed
         atualizarTabelaComListaDeAtendentes();
     }//GEN-LAST:event_jListaAtendentesButtonActionPerformed
+
+    private void jListaMedicosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaMedicosButtonActionPerformed
+        atualizarTabelaComListaDeMedicos();
+    }//GEN-LAST:event_jListaMedicosButtonActionPerformed
 
     /**
      * @param args the command line arguments

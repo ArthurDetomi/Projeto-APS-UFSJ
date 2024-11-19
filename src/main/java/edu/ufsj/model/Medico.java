@@ -14,6 +14,12 @@ public class Medico extends Usuario {
 		this.crm = crm;
 	}
 
+	public Medico(Integer id, TipoUsuario tipoUsuario, String cpf, String telefone, String email, String login,
+			String password, String nome, String crm, LocalDateTime cadastrado, LocalDateTime editado) {
+		super(id, login, password, cpf, nome, telefone, email, cadastrado, editado, tipoUsuario);
+		this.crm = crm;
+	}
+
 	public String getCrm() {
 		return crm;
 	}

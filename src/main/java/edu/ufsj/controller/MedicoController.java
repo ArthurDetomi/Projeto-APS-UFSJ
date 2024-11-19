@@ -5,6 +5,8 @@ import edu.ufsj.dao.UsuarioDao;
 import edu.ufsj.exception.UsuarioJaExisteException;
 import edu.ufsj.model.Medico;
 
+import java.util.List;
+
 public class MedicoController {
 
     private UsuarioDao usuarioDao = new UsuarioDao();
@@ -27,4 +29,7 @@ public class MedicoController {
         return medicoDao.create(medico);
     }
 
+    public List<Medico> listarMedicos() {
+        return medicoDao.findAll();
+    }
 }
