@@ -2,6 +2,8 @@ package edu.ufsj.dao;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.ufsj.config.DataBaseConfig;
 import edu.ufsj.model.TipoUsuario;
@@ -125,5 +127,26 @@ public class UsuarioDao extends  AbstractGenericDao implements GenericDao<Usuari
 		}
 
 		return id != null;
+	}
+
+	public List<Usuario> findAllByTipoUsuario(TipoUsuario tipoUsuario) {
+		final String FIND_ALL_BY_TIPO = "SELECT * FROM usuarios WHERE tipo_usuario = ?";
+
+		List<Usuario> usuarios = new ArrayList<>();
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement findAllByTipoStatement = connection.prepareStatement(FIND_ALL_BY_TIPO);
+			findAllByTipoStatement.setString(1, tipoUsuario.getTipo());
+
+			ResultSet resultSet = findAllByTipoStatement.executeQuery();
+
+			while (resultSet.next()) {
+				usuarios.add(extractUserByResultSet(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return usuarios;
 	}
 }

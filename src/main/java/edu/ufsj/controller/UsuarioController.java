@@ -3,8 +3,11 @@ package edu.ufsj.controller;
 import edu.ufsj.dao.UsuarioDao;
 import edu.ufsj.exception.FalhaAutenticacaoUsuarioException;
 import edu.ufsj.exception.UsuarioJaExisteException;
+import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
 import edu.ufsj.service.UserSession;
+
+import java.util.List;
 
 public class UsuarioController {
 
@@ -32,4 +35,9 @@ public class UsuarioController {
 
 		return usuarioDao.create(usuario);
 	}
+
+	public List<Usuario> listarAtendentes() {
+		return usuarioDao.findAllByTipoUsuario(TipoUsuario.ATENDENTE);
+	}
+
 }

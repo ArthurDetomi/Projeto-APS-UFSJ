@@ -5,16 +5,18 @@
 package edu.ufsj.view.home;
 
 import edu.ufsj.controller.PacienteController;
+import edu.ufsj.controller.UsuarioController;
 import edu.ufsj.model.Paciente;
+import edu.ufsj.model.Usuario;
 import edu.ufsj.service.UserSession;
-import edu.ufsj.utils.TableDataModel;
+import edu.ufsj.view.table.PacienteTableModel;
 import edu.ufsj.view.dialogs.JDialogCadastroConsulta;
 import edu.ufsj.view.dialogs.JDialogCadastroMedico;
 import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
 import edu.ufsj.view.dialogs.JDialogCadastroAtendente;
+import edu.ufsj.view.table.UsuarioTableModel;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.util.List;
 
 /**
@@ -22,8 +24,6 @@ import java.util.List;
  * @author arthurd
  */
 public class JHome extends javax.swing.JFrame {
-
-    private TableDataModel modelo = new TableDataModel();
 
     /**
      * Creates new form JHome
@@ -213,31 +213,23 @@ public class JHome extends javax.swing.JFrame {
 
 
     private void atualizarTabelaComListaDePacientes() {
-        jTabelaListagens.setModel(modelo);
-
         PacienteController pacienteController = new PacienteController();
 
         List<Paciente> pacientes = pacienteController.listarPacientes();
 
-        String[] colunas = {"Nome", "CPF", "Telefone", "Cidade", "Estado", "Número"};
-        Object[][] dados = new Object[pacientes.size()][colunas.length];
+        PacienteTableModel pacienteTableModel = new PacienteTableModel(pacientes);
 
-        int i = 0;
-        for (Paciente paciente : pacientes) {
-            Object[] row = new Object[colunas.length];
-            row[0] = paciente.getNome();
-            row[1] = paciente.getCpf();
-            row[2] = paciente.getTelefone();
-            row[3] = paciente.getCidade();
-            row[4] = paciente.getEstado();
-            row[5] = paciente.getNumero();
+        jTabelaListagens.setModel(pacienteTableModel);
+    }
 
-            dados[i] = row;
-            i++;
-        }
+    private void atualizarTabelaComListaDeAtendentes() {
+        UsuarioController usuarioController = new UsuarioController();
 
+        List<Usuario> usuariosAtendentes = usuarioController.listarAtendentes();
 
-        modelo.setData(colunas, dados);
+        UsuarioTableModel usuarioTableModel = new UsuarioTableModel(usuariosAtendentes);
+
+        jTabelaListagens.setModel(usuarioTableModel);
     }
 
     private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
