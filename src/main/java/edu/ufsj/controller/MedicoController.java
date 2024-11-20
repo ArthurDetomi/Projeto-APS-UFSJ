@@ -1,5 +1,8 @@
 package edu.ufsj.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import edu.ufsj.dao.MedicoDao;
@@ -42,5 +45,13 @@ public class MedicoController {
 
 		return usuarioDao.delete(idMedico);
 
+	}
+
+	public List<Medico> buscarMedicosByStringSearch(String medicoSearchText) {
+		if (medicoSearchText.isBlank()) {
+			return Collections.emptyList();
+		}
+
+		return medicoDao.findByNomeOrCpfOrCrm(medicoSearchText);
 	}
 }

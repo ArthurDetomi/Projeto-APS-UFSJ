@@ -26,8 +26,6 @@ public class PacienteDao implements GenericDao<Paciente> {
 
 	@Override
 	public boolean create(Paciente paciente) {
-		paciente.formatarCampos();
-
 		final String CREATE_NEW_PACIENTE_QUERY = ""
 				+ "INSERT INTO  pacientes (nome, cpf, telefone, cidade, estado, numero, editado) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -130,5 +128,38 @@ public class PacienteDao implements GenericDao<Paciente> {
 		}
 
 		return result == 1;
+	}
+
+	public List<Paciente> findByNomeOrCpf(String pacienteSearchText) {
+		final String FIND_BY_QUERY = "" //
+				+ "SELECT   " //
+				+ "    *  " //
+				+ "FROM  " //
+				+ "    pacientes  " //
+				+ "WHERE  " //
+				+ "    nome LIKE ? OR cpf LIKE ?  " //
+				+ "ORDER BY nome";
+
+		String stringSearch = pacienteSearchText + "%";
+
+		List<Paciente> pacientes = new ArrayList<>();
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement findByQueryStatement = connection.prepareStatement(FIND_BY_QUERY);
+
+			findByQueryStatement.setString(1, stringSearch);
+			findByQueryStatement.setString(2, stringSearch);
+
+			ResultSet resultSet = findByQueryStatement.executeQuery();
+
+			while (resultSet.next()) {
+				pacientes.add(extractPacienteByResultSet(resultSet));
+			}
+
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return pacientes;
 	}
 }

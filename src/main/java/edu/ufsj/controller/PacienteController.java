@@ -2,8 +2,10 @@ package edu.ufsj.controller;
 
 import edu.ufsj.dao.PacienteDao;
 import edu.ufsj.exception.PacienteJaExisteException;
+import edu.ufsj.model.Medico;
 import edu.ufsj.model.Paciente;
 
+import java.util.Collections;
 import java.util.List;
 
 public class PacienteController {
@@ -24,5 +26,13 @@ public class PacienteController {
 
 	public boolean excluirPaciente(Integer idPaciente) {
 		return pacienteDao.delete(idPaciente);
+	}
+
+	public List<Paciente> buscarPacientesByStringSearch(String pacienteSearchText) {
+		if (pacienteSearchText.isBlank()) {
+			return Collections.emptyList();
+		}
+
+		return pacienteDao.findByNomeOrCpf(pacienteSearchText);
 	}
 }

@@ -84,4 +84,39 @@ public class MedicoDao extends AbstractGenericDao implements GenericDao<Medico> 
 
 		return result == 1;
 	}
+
+	public List<Medico> findByNomeOrCpfOrCrm(String medicoSearchText) {
+		final String FIND_BY_QUERY = "" //
+				+ "SELECT  " //
+				+ "    u.*, m.crm " //
+				+ "FROM " //
+				+ "    usuarios AS u " //
+				+ "        INNER JOIN " //
+				+ "    medicos AS m ON u.id = m.id " //
+				+ "WHERE " //
+				+ "    u.nome LIKE ? OR u.cpf LIKE ? " //
+				+ "        OR m.crm LIKE ?"
+				+ "    ORDER BY u.nome ASC";
+
+		List<Medico> medicos = new ArrayList<>();
+
+		String stringSearchText = medicoSearchText + "%";
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_QUERY);
+			preparedStatement.setString(1, stringSearchText);
+			preparedStatement.setString(2, stringSearchText);
+			preparedStatement.setString(3, stringSearchText);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				medicos.add(extractMedicoFromResultSet(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return medicos;
+	}
 }

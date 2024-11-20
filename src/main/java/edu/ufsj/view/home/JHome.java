@@ -93,13 +93,13 @@ public class JHome extends javax.swing.JFrame {
 
         jTabelaListagens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(jTabelaListagens);
@@ -287,10 +287,15 @@ public class JHome extends javax.swing.JFrame {
         jDialogCadastroAtendente.abrirDialog();
     }                                                  
 
-    private void jCadastroConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroConsultaActionPerformed
+	private void jCadastroConsultaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroConsultaActionPerformed
+		if (!UserSession.getInstance().isUsuarioPodeCadastrarConsultaMedica()) {
+			JOptionPane.showMessageDialog(null, "Somente usuário admin e atendente podem registrar consultas",
+					"Permissão Error", JOptionPane.ERROR_MESSAGE);
+            return;
+		}
         JDialogCadastroConsulta jDialogCadastroConsulta = new JDialogCadastroConsulta();
         jDialogCadastroConsulta.abrirDialog();
-    }//GEN-LAST:event_jCadastroConsultaActionPerformed
+    }                                                 
 
     private void jListaPacientesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaPacientesButtonActionPerformed
         atualizarTabelaComListaDePacientes();
@@ -389,7 +394,7 @@ public class JHome extends javax.swing.JFrame {
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
-    }//GEN-LAST:event_jExcluirRowButtonActionPerformed
+    }                                                 
 
     /**
      * @param args the command line arguments

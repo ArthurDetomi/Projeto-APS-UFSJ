@@ -56,6 +56,11 @@ public class UserSession {
 		return tipoUsuario.equals(TipoUsuario.ADMIN) || tipoUsuario.equals(TipoUsuario.ATENDENTE);
 	}
 
+	public boolean isUsuarioPodeCadastrarConsultaMedica() {
+		TipoUsuario tipoUsuario = getLoggedUser().getTipoUsuario();
+		return tipoUsuario.equals(TipoUsuario.ADMIN) || tipoUsuario.equals(TipoUsuario.ATENDENTE);
+	}
+
 	public Usuario getLoggedUser() {
 		return loggedUser;
 	}
