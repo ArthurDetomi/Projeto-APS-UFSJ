@@ -41,6 +41,10 @@ public class MedicoTableModel extends AbstractTableModel {
 		return medicos.get(rowIndex).getTipoUsuario();
 	}
 
+	public Medico getMedico(int rowIndex) {
+		return medicos.get(rowIndex);
+	}
+
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Medico medico = medicos.get(rowIndex);

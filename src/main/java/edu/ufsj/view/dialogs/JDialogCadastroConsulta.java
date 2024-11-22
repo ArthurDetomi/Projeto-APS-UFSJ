@@ -4,14 +4,16 @@
  */
 package edu.ufsj.view.dialogs;
 
+import java.util.List;
+
+import javax.swing.*;
+
 import edu.ufsj.controller.MedicoController;
 import edu.ufsj.controller.PacienteController;
 import edu.ufsj.model.Medico;
 import edu.ufsj.model.Paciente;
 import edu.ufsj.view.table.MedicoTableModel;
 import edu.ufsj.view.table.PacienteTableModel;
-
-import java.util.List;
 
 /**
  *
@@ -21,6 +23,9 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
 
     private MedicoController medicoController = new MedicoController();
     private PacienteController pacienteController = new PacienteController();
+
+    private Paciente pacienteSelected;
+    private Medico medicoSelected;
 
     /**
      * Creates new form JCadastroConsultaDialog
@@ -273,16 +278,65 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
     }
 
     private void jCadastroConsultaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroConsultaButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCadastroConsultaButtonActionPerformed
+        if (this.pacienteSelected == null || this.medicoSelected == null) {
+			JOptionPane.showMessageDialog(this, "Deve-se selecionar um médico e um paciente", "Erro cadastro consulta", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
 
-    private void jPacienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPacienteTableMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPacienteTableMouseClicked
+		String horaText = jHoraTextField.getText();
+		String dataText = jDataTextField.getText();
 
-    private void jMedicoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMedicoTableMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMedicoTableMouseClicked
+		boolean cadastradoComSucesso = false;
+
+	}//GEN-LAST:event_jCadastroConsultaButtonActionPerformed
+
+	private void jPacienteTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jPacienteTableMouseClicked
+		if (evt.getClickCount() != 2) {
+			return;
+		}
+
+		int lineIndex = jPacienteTable.rowAtPoint(evt.getPoint());
+
+		if (lineIndex == -1) {
+			return;
+		}
+
+		PacienteTableModel pacienteTableModel = (PacienteTableModel) jPacienteTable.getModel();
+
+		this.pacienteSelected = pacienteTableModel.getPaciente(lineIndex);
+
+		if (pacienteSelected == null) {
+			JOptionPane.showMessageDialog(null, "Houve algum erro ao selecionar paciente", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+        }
+
+		jPacientSearchTextField.setText(pacienteSelected.getNome());
+	}// GEN-LAST:event_jPacienteTableMouseClicked
+
+	private void jMedicoTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jMedicoTableMouseClicked
+		if (evt.getClickCount() != 2) {
+			return;
+		}
+
+		int lineIndex = jMedicoTable.rowAtPoint(evt.getPoint());
+
+		if (lineIndex == -1) {
+			return;
+		}
+
+		MedicoTableModel medicoTableModel = (MedicoTableModel) jMedicoTable.getModel();
+
+		this.medicoSelected = medicoTableModel.getMedico(lineIndex);
+
+		if (medicoSelected == null) {
+			JOptionPane.showMessageDialog(null, "Houve algum erro ao selecionar médico", "Error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		jMedicoSearchTextField.setText(medicoSelected.getNome());
+	}// GEN-LAST:event_jMedicoTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -291,7 +345,7 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

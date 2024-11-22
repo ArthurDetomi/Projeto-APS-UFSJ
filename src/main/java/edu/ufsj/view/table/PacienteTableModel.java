@@ -37,6 +37,11 @@ public class PacienteTableModel extends AbstractTableModel {
 		return colunas[column];
 	}
 
+	public Paciente getPaciente(int rowIndex) {
+		return pacientes.get(rowIndex);
+	}
+
+
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Paciente paciente = pacientes.get(rowIndex);
