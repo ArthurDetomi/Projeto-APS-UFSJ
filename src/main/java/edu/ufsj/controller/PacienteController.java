@@ -30,7 +30,7 @@ public class PacienteController {
 
 	public List<Paciente> buscarPacientesByStringSearch(String pacienteSearchText) {
 		if (pacienteSearchText.isBlank()) {
-			return Collections.emptyList();
+			return pacienteDao.findAll();
 		}
 
 		return pacienteDao.findByNomeOrCpf(pacienteSearchText);

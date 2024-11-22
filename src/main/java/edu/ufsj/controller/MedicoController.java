@@ -49,7 +49,7 @@ public class MedicoController {
 
 	public List<Medico> buscarMedicosByStringSearch(String medicoSearchText) {
 		if (medicoSearchText.isBlank()) {
-			return Collections.emptyList();
+			return medicoDao.findAll();
 		}
 
 		return medicoDao.findByNomeOrCpfOrCrm(medicoSearchText);
