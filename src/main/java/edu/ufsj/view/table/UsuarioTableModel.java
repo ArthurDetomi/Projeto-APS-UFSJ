@@ -1,19 +1,17 @@
 package edu.ufsj.view.table;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
 import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
+import edu.ufsj.utils.DateUtil;
 
 public class UsuarioTableModel extends AbstractTableModel {
 
 	private final String[] colunas = { "Nome", "CPF", "E-mail", "Telefone", "Cadastrado" };
 	private final List<Usuario> usuarios;
-
-	private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
 	public UsuarioTableModel(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
@@ -56,7 +54,7 @@ public class UsuarioTableModel extends AbstractTableModel {
 		case 3:
 			return usuario.getTelefone();
 		case 4:
-			return usuario.getCadastrado().format(formatter);
+			return usuario.getCadastrado().format(DateUtil.formatterPadraoDataHora);
 		}
 
 		return null;
