@@ -43,7 +43,6 @@ CREATE TABLE consultas (
     paciente_id INT UNSIGNED NOT NULL,
     descricao VARCHAR(255) DEFAULT NULL,
     cadastrado DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    data_inicio DATETIME DEFAULT NULL,
     data_fim DATETIME DEFAULT NULL,
     data_agendamento DATETIME NOT NULL,
     PRIMARY KEY (id),

@@ -11,7 +11,6 @@ public class Consulta {
     private String descricao;
     private LocalDateTime cadastrado;
     private LocalDateTime dataAgendamento;
-    private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
 
     @Override
@@ -78,15 +77,7 @@ public class Consulta {
     public void setDataAgendamento(LocalDateTime dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
     }
-
-    public LocalDateTime getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDateTime dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
+    
     public LocalDateTime getDataFim() {
         return dataFim;
     }
