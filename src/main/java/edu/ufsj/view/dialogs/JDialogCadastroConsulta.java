@@ -4,14 +4,29 @@
  */
 package edu.ufsj.view.dialogs;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 
+import edu.ufsj.controller.ConsultaController;
 import edu.ufsj.controller.MedicoController;
 import edu.ufsj.controller.PacienteController;
+import edu.ufsj.model.Consulta;
 import edu.ufsj.model.Medico;
 import edu.ufsj.model.Paciente;
+import edu.ufsj.utils.DateUtil;
+import edu.ufsj.utils.Response;
 import edu.ufsj.view.table.MedicoTableModel;
 import edu.ufsj.view.table.PacienteTableModel;
 
@@ -23,6 +38,7 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
 
     private MedicoController medicoController = new MedicoController();
     private PacienteController pacienteController = new PacienteController();
+    private ConsultaController consultaController = new ConsultaController();
 
     private Paciente pacienteSelected;
     private Medico medicoSelected;
@@ -62,6 +78,9 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
         jPacienteTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jMedicoTable = new javax.swing.JTable();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jDescricaoTextArea = new javax.swing.JTextArea();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,13 +107,13 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
 
         jLabel3.setText("Medico");
 
-        jDataTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/M/yy"))));
+        jDataTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
         jLabel4.setText("Data");
 
         jLabel5.setText("Hora");
 
-        jHoraTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("h:mm"))));
+        jHoraTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("HH:mm"))));
 
         jCadastroConsultaButton.setBackground(new java.awt.Color(102, 153, 255));
         jCadastroConsultaButton.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
@@ -158,6 +177,13 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
         });
         jScrollPane3.setViewportView(jMedicoTable);
 
+        jLabel6.setText("Descrição");
+
+        jDescricaoTextArea.setColumns(20);
+        jDescricaoTextArea.setLineWrap(true);
+        jDescricaoTextArea.setRows(5);
+        jScrollPane5.setViewportView(jDescricaoTextArea);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -167,45 +193,54 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
                 .addComponent(jCadastroConsultaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(244, 244, 244))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jMedicoSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jBuscaMedicoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jPacientSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jBuscaPacienteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4))
-                            .addGap(30, 30, 30)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jDataTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jHoraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jPacientSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jBuscaPacienteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(16, 16, 16)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel4))
+                                    .addGap(30, 30, 30)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jHoraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(168, 168, 168))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jDataTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel6)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jMedicoSearchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jBuscaMedicoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addComponent(jLabel1)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel1)
-                .addGap(19, 19, 19)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
@@ -221,17 +256,26 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
                     .addComponent(jBuscaMedicoButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jDataTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jHoraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(jDataTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jHoraTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(28, 28, 28)
-                        .addComponent(jCadastroConsultaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
+                        .addComponent(jCadastroConsultaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -249,7 +293,7 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBuscaMedicoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscaMedicoButtonActionPerformed
+    private void jBuscaMedicoButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jBuscaMedicoButtonActionPerformed
         atualizarTabelaComListaDeMedicos();
     }//GEN-LAST:event_jBuscaMedicoButtonActionPerformed
 
@@ -263,7 +307,7 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
         jMedicoTable.setModel(medicoTableModel);
     }
 
-    private void jBuscaPacienteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscaPacienteButtonActionPerformed
+    private void jBuscaPacienteButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_jBuscaPacienteButtonActionPerformed
         atualizarTabelaComListaDePacientes();
     }//GEN-LAST:event_jBuscaPacienteButtonActionPerformed
 
@@ -277,20 +321,47 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
         jPacienteTable.setModel(pacienteTableModel);
     }
 
-    private void jCadastroConsultaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastroConsultaButtonActionPerformed
-        if (this.pacienteSelected == null || this.medicoSelected == null) {
-			JOptionPane.showMessageDialog(this, "Deve-se selecionar um médico e um paciente", "Erro cadastro consulta", JOptionPane.ERROR_MESSAGE);
+	private void jCadastroConsultaButtonActionPerformed(ActionEvent evt) {// GEN-FIRST:event_jCadastroConsultaButtonActionPerformed
+		if (this.pacienteSelected == null || this.medicoSelected == null) {
+			JOptionPane.showMessageDialog(this, "Deve-se selecionar um médico e um paciente", "Erro cadastro consulta",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 
 		String horaText = jHoraTextField.getText();
 		String dataText = jDataTextField.getText();
+        String descricao = jDescricaoTextArea.getText();
 
-		boolean cadastradoComSucesso = false;
+		String dataHour = dataText + " " + horaText;
 
-	}//GEN-LAST:event_jCadastroConsultaButtonActionPerformed
+		Consulta consulta = new Consulta();
 
-	private void jPacienteTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jPacienteTableMouseClicked
+		consulta.setPaciente(this.pacienteSelected);
+		consulta.setMedico(this.medicoSelected);
+        consulta.setDescricao(descricao);
+		consulta.setDataAgendamento(DateUtil.parseDateAndHourToLocalDateTime(dataHour));
+
+		Response<Consulta> response = new Response<>();
+
+		try {
+			response = consultaController.cadastrarConsulta(consulta);
+		} catch (Exception e) {
+			e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro inesperado ocorrido", JOptionPane.ERROR_MESSAGE);
+            return;
+		}
+
+		if (!response.isSuccess()) {
+			JOptionPane.showMessageDialog(null, response.getMessage(), "Erro cadastro consulta",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		JOptionPane.showMessageDialog(null, response.getMessage());
+        this.setVisible(false);
+	}// GEN-LAST:event_jCadastroConsultaButtonActionPerformed
+
+	private void jPacienteTableMouseClicked(MouseEvent evt) {// GEN-FIRST:event_jPacienteTableMouseClicked
 		if (evt.getClickCount() != 2) {
 			return;
 		}
@@ -314,7 +385,7 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
 		jPacientSearchTextField.setText(pacienteSelected.getNome());
 	}// GEN-LAST:event_jPacienteTableMouseClicked
 
-	private void jMedicoTableMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jMedicoTableMouseClicked
+	private void jMedicoTableMouseClicked(MouseEvent evt) {// GEN-FIRST:event_jMedicoTableMouseClicked
 		if (evt.getClickCount() != 2) {
 			return;
 		}
@@ -348,26 +419,26 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDialogCadastroConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(JDialogCadastroConsulta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDialogCadastroConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(JDialogCadastroConsulta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDialogCadastroConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDialogCadastroConsulta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Logger.getLogger(JDialogCadastroConsulta.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(JDialogCadastroConsulta.class.getName()).log(Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new JDialogCadastroConsulta().setVisible(true);
             }
@@ -379,12 +450,14 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
     private javax.swing.JButton jBuscaPacienteButton;
     private javax.swing.JButton jCadastroConsultaButton;
     private javax.swing.JFormattedTextField jDataTextField;
+    private javax.swing.JTextArea jDescricaoTextArea;
     private javax.swing.JFormattedTextField jHoraTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField jMedicoSearchTextField;
     private javax.swing.JTable jMedicoTable;
     private javax.swing.JTextField jPacientSearchTextField;
@@ -393,6 +466,7 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

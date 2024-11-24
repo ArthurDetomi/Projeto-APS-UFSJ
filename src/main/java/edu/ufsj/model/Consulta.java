@@ -27,6 +27,10 @@ public class Consulta {
         return Objects.hashCode(id);
     }
 
+    public boolean isValidForRegisterBD() {
+        return getMedico() != null || getPaciente() != null || getDataAgendamento() != null;
+    }
+
     public Integer getId() {
         return id;
     }
