@@ -71,4 +71,18 @@ public class ConsultaController {
 
 		return new Response<>(true, "Consulta finalizada com sucesso");
 	}
+
+	public Response<Consulta> excluirConsultaById(Integer idConsulta) {
+		if (idConsulta == null) {
+			return new Response<>(false, "Consulta para exclusão inválida");
+		}
+
+		boolean deletionSuccess = consultaDao.delete(idConsulta);
+
+		if (!deletionSuccess) {
+			return new Response<>(false, "Falha ao excluir consulta");
+		}
+
+		return new Response<>(true, "Consulta excluida com sucesso");
+	}
 }

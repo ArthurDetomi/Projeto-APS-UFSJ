@@ -375,7 +375,7 @@ public class JHome extends javax.swing.JFrame {
 			return;
 		}
 
-		JOptionPane.showMessageDialog(null, "Consulta finalizada com sucesso");
+		JOptionPane.showMessageDialog(null, consultaResponse.getMessage());
         atualizarTabelaComListaDeConsultas();
 	}// GEN-LAST:event_jFinalizacaoConsultaButtonActionPerformed
 
@@ -463,7 +463,29 @@ public class JHome extends javax.swing.JFrame {
 				JOptionPane.showMessageDialog(null, "Erro ao excluir paciente com cpf " + cpf, "Exclusão Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
-		}
+		} else if (currentTableModel instanceof ConsultaTableModel) {
+            ConsultaTableModel consultaTableModel = (ConsultaTableModel) jTabelaListagens.getModel();
+
+            Integer idConsulta = consultaTableModel.getEntityId(selectedRowIndex);
+
+            if (!UserSession.getInstance().isUsuarioPodeExcluirConsultaMedica()) {
+                JOptionPane.showMessageDialog(null, "Você não possui permissão para excluir consulta",
+                        "Permissão Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+			Response<Consulta> consultaResponse = consultaController.excluirConsultaById(idConsulta);
+
+			if (!consultaResponse.isSuccess()) {
+				JOptionPane.showMessageDialog(null, consultaResponse.getMessage(), "Erro ao excluir consulta",
+						JOptionPane.ERROR_MESSAGE);
+				return;
+            }
+
+            JOptionPane.showMessageDialog(null, consultaResponse.getMessage());
+
+            atualizarTabelaComListaDeConsultas();
+        }
     }                                                 
 
     /**

@@ -36,7 +36,23 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 
 	@Override
 	public boolean delete(Integer idConsulta) {
-		return false;
+		if (idConsulta == null) {
+			return false;
+		}
+
+		final String DELETE_CONSULTA_QUERY = "DELETE FROM consultas WHERE id = ?";
+
+		int result = 0;
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CONSULTA_QUERY);
+			preparedStatement.setInt(1, idConsulta);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return result == 1;
 	}
 
 	public LocalDateTime findLastDataAgendamento(Consulta consulta) {
