@@ -20,6 +20,10 @@ public class Medico extends Usuario {
 		this.crm = crm;
 	}
 
+	public Medico() {
+
+	}
+
 	public String getCrm() {
 		return crm;
 	}

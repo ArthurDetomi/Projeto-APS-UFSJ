@@ -1,6 +1,8 @@
 package edu.ufsj.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import edu.ufsj.dao.ConsultaDao;
 import edu.ufsj.model.Consulta;
@@ -40,5 +42,33 @@ public class ConsultaController {
 		}
 
 		return new Response<>(true, "Consulta cadastrada com sucesso");
+	}
+
+	public List<Consulta> findAllConsultasDeHoje() {
+		return consultaDao.findAllConsultasDeHoje();
+	}
+
+	public List<Consulta> findAllConsultas() {
+		return consultaDao.findAll();
+	}
+
+	public Response<Consulta> finalizarConsulta(Consulta consulta) {
+		LocalDateTime dataAgendamento = consulta.getDataAgendamento();
+
+		if (consulta.getId() == null || dataAgendamento == null) {
+			return new Response<>(false, "Consulta selecionada inválida");
+		}
+
+		if (!dataAgendamento.toLocalDate().equals(LocalDate.now())) {
+			return new Response<>(false, "Somente consultas de hoje podem ser finalizadas");
+		}
+
+		boolean consultaFinalizadaComSucesso = consultaDao.finalizarConsulta(consulta);
+
+		if (!consultaFinalizadaComSucesso) {
+			return new Response<>(false, "Falha ao finalizar consulta");
+		}
+
+		return new Response<>(true, "Consulta finalizada com sucesso");
 	}
 }

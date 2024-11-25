@@ -4,26 +4,27 @@
  */
 package edu.ufsj.view.home;
 
-import edu.ufsj.controller.MedicoController;
-import edu.ufsj.controller.PacienteController;
-import edu.ufsj.controller.UsuarioController;
-import edu.ufsj.model.Medico;
-import edu.ufsj.model.Paciente;
-import edu.ufsj.model.TipoUsuario;
-import edu.ufsj.model.Usuario;
-import edu.ufsj.service.UserSession;
-import edu.ufsj.view.table.MedicoTableModel;
-import edu.ufsj.view.table.PacienteTableModel;
-import edu.ufsj.view.dialogs.JDialogCadastroConsulta;
-import edu.ufsj.view.dialogs.JDialogCadastroMedico;
-import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
-import edu.ufsj.view.dialogs.JDialogCadastroAtendente;
-import edu.ufsj.view.table.UsuarioTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
-import java.util.List;
+
+import edu.ufsj.controller.ConsultaController;
+import edu.ufsj.controller.MedicoController;
+import edu.ufsj.controller.PacienteController;
+import edu.ufsj.controller.UsuarioController;
+import edu.ufsj.model.*;
+import edu.ufsj.service.UserSession;
+import edu.ufsj.utils.Response;
+import edu.ufsj.view.dialogs.JDialogCadastroAtendente;
+import edu.ufsj.view.dialogs.JDialogCadastroConsulta;
+import edu.ufsj.view.dialogs.JDialogCadastroMedico;
+import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
+import edu.ufsj.view.table.ConsultaTableModel;
+import edu.ufsj.view.table.MedicoTableModel;
+import edu.ufsj.view.table.PacienteTableModel;
+import edu.ufsj.view.table.UsuarioTableModel;
 
 /**
  *
@@ -34,6 +35,7 @@ public class JHome extends javax.swing.JFrame {
     private PacienteController pacienteController = new PacienteController();
     private MedicoController medicoController = new MedicoController();
     private UsuarioController usuarioController = new UsuarioController();
+    private ConsultaController consultaController = new ConsultaController();
 
     /**
      * Creates new form JHome
@@ -51,12 +53,10 @@ public class JHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jListarAgendaButton = new javax.swing.JButton();
-        jListarAtendimentosButton = new javax.swing.JButton();
+        jListarConsultasButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTabelaListagens = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jAplicarFiltroBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jListaAtendentesButton = new javax.swing.JButton();
         jListaMedicosButton = new javax.swing.JButton();
@@ -64,6 +64,9 @@ public class JHome extends javax.swing.JFrame {
         jSearchTextField = new javax.swing.JTextField();
         jBuscaDadosButton = new javax.swing.JButton();
         jListaPacientesButton = new javax.swing.JButton();
+        jFiltroConsultaBox = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jFinalizacaoConsultaButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastro = new javax.swing.JMenu();
@@ -80,16 +83,13 @@ public class JHome extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jListarAgendaButton.setText("Agenda");
-        jListarAgendaButton.addActionListener(new java.awt.event.ActionListener() {
+        jListarConsultasButton.setText("Consultas");
+        jListarConsultasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jListarAgendaButtonActionPerformed(evt);
+                jListarConsultasButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jListarAgendaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 180, -1));
-
-        jListarAtendimentosButton.setText("Lista de Atendimento");
-        getContentPane().add(jListarAtendimentosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 180, -1));
+        getContentPane().add(jListarConsultasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 180, -1));
 
         jTabelaListagens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,16 +104,13 @@ public class JHome extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTabelaListagens);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 830, 550));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 1020, 550));
 
-        jLabel2.setText("FILTROS:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
-
-        jAplicarFiltroBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jAplicarFiltroBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 180, -1));
+        jLabel2.setText("Filtros Consulta:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, -1, -1));
 
         jLabel3.setText("LISTAR:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
 
         jListaAtendentesButton.setText("Atendentes");
         jListaAtendentesButton.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +118,7 @@ public class JHome extends javax.swing.JFrame {
                 jListaAtendentesButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jListaAtendentesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 180, -1));
+        getContentPane().add(jListaAtendentesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 180, -1));
 
         jListaMedicosButton.setText("Médicos");
         jListaMedicosButton.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +126,7 @@ public class JHome extends javax.swing.JFrame {
                 jListaMedicosButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jListaMedicosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 180, -1));
+        getContentPane().add(jListaMedicosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 250, 180, -1));
 
         jExcluirRowButton.setText("Excluir");
         jExcluirRowButton.addActionListener(new java.awt.event.ActionListener() {
@@ -137,13 +134,13 @@ public class JHome extends javax.swing.JFrame {
                 jExcluirRowButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jExcluirRowButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 80, 120, 50));
+        getContentPane().add(jExcluirRowButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 80, 130, 50));
 
         jSearchTextField.setToolTipText("Pesquise por nome ou CPF");
-        getContentPane().add(jSearchTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 510, 50));
+        getContentPane().add(jSearchTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 590, 50));
 
         jBuscaDadosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/lupa.png"))); // NOI18N
-        getContentPane().add(jBuscaDadosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 80, 70, 50));
+        getContentPane().add(jBuscaDadosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 80, 70, 50));
 
         jListaPacientesButton.setText("Pacientes");
         jListaPacientesButton.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +148,21 @@ public class JHome extends javax.swing.JFrame {
                 jListaPacientesButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jListaPacientesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 180, -1));
+        getContentPane().add(jListaPacientesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 180, -1));
+
+        jFiltroConsultaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hoje", "Todas"}));
+        getContentPane().add(jFiltroConsultaBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 180, -1));
+
+        jLabel4.setText("LISTAR:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 200, -1, -1));
+
+        jFinalizacaoConsultaButton.setText("Finalizar consulta");
+        jFinalizacaoConsultaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFinalizacaoConsultaButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jFinalizacaoConsultaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 80, 150, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/background-home.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -226,16 +237,37 @@ public class JHome extends javax.swing.JFrame {
        jDialogCadastroPaciente.abrirDialog();
     }                                                 
 
-    private void jListarAgendaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarAgendaButtonActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jListarAgendaButtonActionPerformed
+    private void jListarConsultasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListarConsultasButtonActionPerformed
+       atualizarTabelaComListaDeConsultas();
+    }//GEN-LAST:event_jListarConsultasButtonActionPerformed
     
     private void jCadastroPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCadastroPacienteMouseClicked
         // TODO add your handling code here:
 
     }//GEN-LAST:event_jCadastroPacienteMouseClicked
 
+	private void atualizarTabelaComListaDeConsultas() {
+		String filtro = (String) jFiltroConsultaBox.getSelectedItem();
+
+		List<Consulta> consultas = new ArrayList<>();
+
+		try {
+			switch (filtro) {
+			case "Hoje":
+				consultas = consultaController.findAllConsultasDeHoje();
+				break;
+			case "Todas":
+				consultas = consultaController.findAllConsultas();
+				break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		ConsultaTableModel consultaTableModel = new ConsultaTableModel(consultas);
+
+		jTabelaListagens.setModel(consultaTableModel);
+	}
 
     private void atualizarTabelaComListaDePacientes() {
         List<Paciente> pacientes = pacienteController.listarPacientes();
@@ -308,6 +340,44 @@ public class JHome extends javax.swing.JFrame {
     private void jListaMedicosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaMedicosButtonActionPerformed
         atualizarTabelaComListaDeMedicos();
     }//GEN-LAST:event_jListaMedicosButtonActionPerformed
+
+	private void jFinalizacaoConsultaButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jFinalizacaoConsultaButtonActionPerformed
+		int selectedRowIndex = jTabelaListagens.getSelectedRow();
+
+		if (selectedRowIndex < 0) {
+			JOptionPane.showMessageDialog(null, "Nenhuma cosulta foi selecionada para finalização",
+					"Finalização consulta error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		AbstractTableModel currentTableModel = (AbstractTableModel) jTabelaListagens.getModel();
+
+		if (!(currentTableModel instanceof ConsultaTableModel)) {
+			JOptionPane.showMessageDialog(null, "Somente consultas podem ser finalizadas ",
+					"Finalização consulta error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		ConsultaTableModel consultaTableModel = (ConsultaTableModel) jTabelaListagens.getModel();
+
+		Consulta consulta = consultaTableModel.getConsulta(selectedRowIndex);
+
+		Response<Consulta> consultaResponse = null;
+		try {
+			consultaResponse = consultaController.finalizarConsulta(consulta);
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+
+		if (!consultaResponse.isSuccess()) {
+			JOptionPane.showMessageDialog(null, consultaResponse.getMessage(), "Finalização consulta error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		JOptionPane.showMessageDialog(null, "Consulta finalizada com sucesso");
+        atualizarTabelaComListaDeConsultas();
+	}// GEN-LAST:event_jFinalizacaoConsultaButtonActionPerformed
 
 	private void jExcluirRowButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jExcluirRowButtonActionPerformed
 		int selectedRowIndex = jTabelaListagens.getSelectedRow();
@@ -438,21 +508,22 @@ public class JHome extends javax.swing.JFrame {
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jAplicarFiltroBox;
     private javax.swing.JButton jBuscaDadosButton;
     private javax.swing.JMenuItem jCadastroAtendente;
     private javax.swing.JMenuItem jCadastroConsulta;
     private javax.swing.JMenuItem jCadastroMedico;
     private javax.swing.JMenuItem jCadastroPaciente;
     private javax.swing.JButton jExcluirRowButton;
+    private javax.swing.JComboBox<String> jFiltroConsultaBox;
+    private javax.swing.JButton jFinalizacaoConsultaButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jListaAtendentesButton;
     private javax.swing.JButton jListaMedicosButton;
     private javax.swing.JButton jListaPacientesButton;
-    private javax.swing.JButton jListarAgendaButton;
-    private javax.swing.JButton jListarAtendimentosButton;
+    private javax.swing.JButton jListarConsultasButton;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCadastro;
     private javax.swing.JScrollPane jScrollPane1;

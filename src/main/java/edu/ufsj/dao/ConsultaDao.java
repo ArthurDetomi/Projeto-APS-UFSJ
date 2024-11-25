@@ -2,9 +2,12 @@ package edu.ufsj.dao;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.ufsj.model.Consulta;
 import edu.ufsj.model.Medico;
+import edu.ufsj.model.Paciente;
 import edu.ufsj.utils.DateUtil;
 
 public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consulta> {
@@ -58,5 +61,132 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 		}
 
 		return (lastDataAgendamento != null) ? lastDataAgendamento.toLocalDateTime() : null;
+	}
+
+	private Consulta extractConsultaFromResultSet(ResultSet resultSet) throws SQLException {
+		Integer id = resultSet.getInt("id");
+		Timestamp dataAgendamentoTimestamp = resultSet.getTimestamp("data_agendamento");
+		Timestamp cadastradoTimestamp = resultSet.getTimestamp("cadastrado");
+		Timestamp dataFimTimestamp = resultSet.getTimestamp("data_fim");
+
+		LocalDateTime cadastrado = (cadastradoTimestamp != null) ? cadastradoTimestamp.toLocalDateTime() : null;
+		LocalDateTime dataAgendamento = (dataAgendamentoTimestamp != null) ? dataAgendamentoTimestamp.toLocalDateTime()
+				: null;
+		LocalDateTime dataFim = (dataFimTimestamp != null) ? dataFimTimestamp.toLocalDateTime() : null;
+
+		Integer medicoId = resultSet.getInt("medico_id");
+		Integer pacienteId = resultSet.getInt("paciente_id");
+		String descricao = resultSet.getString("descricao");
+		String nomePaciente = resultSet.getString("nomePaciente");
+		String cpfPaciente = resultSet.getString("cpfPaciente");
+		String nomeMedico = resultSet.getString("usuarioNome");
+		String crm = resultSet.getString("crm");
+
+		Medico medico = new Medico();
+		medico.setId(medicoId);
+		medico.setNome(nomeMedico);
+		medico.setCrm(crm);
+
+		Paciente paciente = new Paciente();
+		paciente.setId(pacienteId);
+		paciente.setNome(nomePaciente);
+		paciente.setCpf(cpfPaciente);
+
+		Consulta consulta = new Consulta();
+		consulta.setId(id);
+		consulta.setMedico(medico);
+		consulta.setPaciente(paciente);
+		consulta.setDescricao(descricao);
+		consulta.setDataAgendamento(dataAgendamento);
+		consulta.setCadastrado(cadastrado);
+		consulta.setDataFim(dataFim);
+
+		return consulta;
+	}
+
+	public List<Consulta> findAllConsultasDeHoje() {
+		List<Consulta> consultas = new ArrayList<>();
+
+		final String FIND_ALL_CONSULTAS_DE_HOJE_QUERY = "" + "SELECT  " //
+				+ "    c.*, p.nome as nomePaciente, p.cpf as cpfPaciente, u.nome as usuarioNome, m.crm as crm " //
+				+ "FROM " //
+				+ "    consultas AS c " //
+				+ "        INNER JOIN " //
+				+ "    pacientes AS p ON c.paciente_id = p.id " //
+				+ "        INNER JOIN " //
+				+ "    medicos AS m ON c.medico_id = m.id " //
+				+ "        INNER JOIN " //
+				+ "    usuarios AS u ON u.id = m.id " //
+				+ "WHERE " //
+				+ "    data_agendamento >= CURDATE() " //
+				+ "        AND data_agendamento < CURDATE() + INTERVAL 1 DAY " //
+				+ "ORDER BY data_agendamento ASC";
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_CONSULTAS_DE_HOJE_QUERY);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				consultas.add(extractConsultaFromResultSet(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return consultas;
+	}
+
+	public List<Consulta> findAll() {
+		List<Consulta> consultas = new ArrayList<>();
+
+		final String FIND_ALL_CONSULTAS_DE_HOJE_QUERY = "" + "SELECT  " //
+				+ "    c.*, p.nome as nomePaciente, p.cpf as cpfPaciente, u.nome as usuarioNome, m.crm as crm " //
+				+ "FROM " //
+				+ "    consultas AS c " //
+				+ "        INNER JOIN " //
+				+ "    pacientes AS p ON c.paciente_id = p.id " //
+				+ "        INNER JOIN " //
+				+ "    medicos AS m ON c.medico_id = m.id " //
+				+ "        INNER JOIN " //
+				+ "    usuarios AS u ON u.id = m.id " //
+				+ "ORDER BY data_agendamento DESC";
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_CONSULTAS_DE_HOJE_QUERY);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				consultas.add(extractConsultaFromResultSet(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return consultas;
+	}
+
+	public boolean finalizarConsulta(Consulta consulta) {
+		if (consulta.getId() == null) {
+			return false;
+		}
+
+		final String UPDATE_DATA_FIM_CONSULTA = "" //
+				+ "UPDATE consultas   " //
+				+ "SET   " //
+				+ "    data_fim = CURRENT_TIMESTAMP()  " //
+				+ "WHERE  " //
+				+ "    id = ?";
+
+		int result = 0;
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DATA_FIM_CONSULTA);
+			preparedStatement.setInt(1, consulta.getId());
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return result == 1;
 	}
 }

@@ -16,6 +16,10 @@ public class Paciente {
 	private LocalDateTime editado;
 	private List<Consulta> consultas;
 
+	public Paciente() {
+
+	}
+
 	public Paciente(String nome, String cpf, String telefone, String estado, String cidade, String numero) {
 		this.nome = nome;
 		this.cpf = cpf;

@@ -26,6 +26,11 @@ public class Consulta {
         return Objects.hashCode(id);
     }
 
+
+    public boolean isConsultaRealizada() {
+        return getDataFim() != null;
+    }
+
     public boolean isValidForRegisterBD() {
         return getMedico() != null || getPaciente() != null || getDataAgendamento() != null;
     }
@@ -85,4 +90,5 @@ public class Consulta {
     public void setDataFim(LocalDateTime dataFim) {
         this.dataFim = dataFim;
     }
+
 }

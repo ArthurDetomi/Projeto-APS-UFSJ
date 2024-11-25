@@ -15,6 +15,10 @@ public class Usuario {
 	private LocalDateTime editado;
 	private TipoUsuario tipoUsuario;
 
+	public Usuario() {
+
+	}
+
 	public Usuario(Integer id, String login, String password, String cpf, String nome, String telefone, String email,
 			LocalDateTime cadastrado, LocalDateTime editado, TipoUsuario tipoUsuario) {
 		this.id = id;

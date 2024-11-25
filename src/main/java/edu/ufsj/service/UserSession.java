@@ -28,11 +28,6 @@ public class UserSession {
 		return tipoUsuario.equals(TipoUsuario.ADMIN) || tipoUsuario.equals(TipoUsuario.ATENDENTE);
 	}
 
-	public boolean isUsuarioLogadoPodeCadastrarConsultaMedica() {
-		TipoUsuario tipoUsuario = getLoggedUser().getTipoUsuario();
-		return tipoUsuario.equals(TipoUsuario.ADMIN) || tipoUsuario.equals(TipoUsuario.ATENDENTE);
-	}
-
 	public boolean isUsuarioLogadoPodeCadastrarAtendente() {
 		TipoUsuario tipoUsuario = getLoggedUser().getTipoUsuario();
 		return tipoUsuario.equals(TipoUsuario.ADMIN);
@@ -57,6 +52,16 @@ public class UserSession {
 	}
 
 	public boolean isUsuarioPodeCadastrarConsultaMedica() {
+		TipoUsuario tipoUsuario = getLoggedUser().getTipoUsuario();
+		return tipoUsuario.equals(TipoUsuario.ADMIN) || tipoUsuario.equals(TipoUsuario.ATENDENTE);
+	}
+
+	public boolean isUsuarioPodeFinalizarConsultaMedica() {
+		TipoUsuario tipoUsuario = getLoggedUser().getTipoUsuario();
+		return tipoUsuario.equals(TipoUsuario.ADMIN) || tipoUsuario.equals(TipoUsuario.MEDICO);
+	}
+
+	public boolean isUsuarioPodeExcluirConsultaMedica() {
 		TipoUsuario tipoUsuario = getLoggedUser().getTipoUsuario();
 		return tipoUsuario.equals(TipoUsuario.ADMIN) || tipoUsuario.equals(TipoUsuario.ATENDENTE);
 	}
