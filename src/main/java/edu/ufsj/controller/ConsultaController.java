@@ -85,4 +85,12 @@ public class ConsultaController {
 
 		return new Response<>(true, "Consulta excluida com sucesso");
 	}
+
+    public List<Consulta> findConsultasByStringSearch(String searchText) {
+		if (searchText.isBlank()) {
+			return consultaDao.findAll();
+		}
+
+		return consultaDao.findAllByStringSearch(searchText);
+    }
 }

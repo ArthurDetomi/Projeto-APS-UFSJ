@@ -140,6 +140,11 @@ public class JHome extends javax.swing.JFrame {
         getContentPane().add(jSearchTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 590, 50));
 
         jBuscaDadosButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/lupa.png"))); // NOI18N
+        jBuscaDadosButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBuscaDadosButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(jBuscaDadosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 80, 70, 50));
 
         jListaPacientesButton.setText("Pacientes");
@@ -340,6 +345,39 @@ public class JHome extends javax.swing.JFrame {
     private void jListaMedicosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jListaMedicosButtonActionPerformed
         atualizarTabelaComListaDeMedicos();
     }//GEN-LAST:event_jListaMedicosButtonActionPerformed
+
+    private void jBuscaDadosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuscaDadosButtonActionPerformed
+        AbstractTableModel currentTableModel = (AbstractTableModel) jTabelaListagens.getModel();
+        String searchText = jSearchTextField.getText();
+
+        if (currentTableModel instanceof UsuarioTableModel) {
+            List<Usuario> atendentes = usuarioController.findAtendentesByStringSearch(searchText);
+
+            UsuarioTableModel usuarioTableModel = new UsuarioTableModel(atendentes);
+
+            jTabelaListagens.setModel(usuarioTableModel);
+        } else if (currentTableModel instanceof MedicoTableModel) {
+            List<Medico> medicos = medicoController.buscarMedicosByStringSearch(searchText);
+
+            MedicoTableModel medicoTableModel = new MedicoTableModel(medicos);
+
+            jTabelaListagens.setModel(medicoTableModel);
+        } else if (currentTableModel instanceof PacienteTableModel) {
+            List<Paciente> pacientes = pacienteController.buscarPacientesByStringSearch(searchText);
+
+            PacienteTableModel pacienteTableModel = new PacienteTableModel(pacientes);
+
+            jTabelaListagens.setModel(pacienteTableModel);
+        } else if (currentTableModel instanceof  ConsultaTableModel) {
+            List<Consulta> consultas = consultaController.findConsultasByStringSearch(searchText);
+
+            ConsultaTableModel consultaTableModel = new ConsultaTableModel(consultas);
+
+            jTabelaListagens.setModel(consultaTableModel);
+        }
+
+
+    }//GEN-LAST:event_jBuscaDadosButtonActionPerformed
 
 	private void jFinalizacaoConsultaButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jFinalizacaoConsultaButtonActionPerformed
 		int selectedRowIndex = jTabelaListagens.getSelectedRow();

@@ -43,4 +43,13 @@ public class UsuarioController {
     public boolean excluirUsuario(Integer idUsuario) {
 		return usuarioDao.delete(idUsuario);
     }
+
+	public List<Usuario> findAtendentesByStringSearch(String searchText) {
+		if (searchText.isBlank()) {
+			return usuarioDao.findAllByTipoUsuario(TipoUsuario.ATENDENTE);
+		}
+
+		return usuarioDao.findAllByTipoUsuarioAndStringSearch(TipoUsuario.ATENDENTE, searchText);
+	}
+
 }

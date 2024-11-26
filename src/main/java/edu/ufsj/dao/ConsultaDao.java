@@ -155,7 +155,8 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 	public List<Consulta> findAll() {
 		List<Consulta> consultas = new ArrayList<>();
 
-		final String FIND_ALL_CONSULTAS_DE_HOJE_QUERY = "" + "SELECT  " //
+		final String FIND_ALL_CONSULTAS_DE_HOJE_QUERY = "" //
+				+ "SELECT  " //
 				+ "    c.*, p.nome as nomePaciente, p.cpf as cpfPaciente, u.nome as usuarioNome, m.crm as crm " //
 				+ "FROM " //
 				+ "    consultas AS c " //
@@ -205,4 +206,44 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 
 		return result == 1;
 	}
+
+    public List<Consulta> findAllByStringSearch(String searchText) {
+		final String FIND_ALL_BY_FIELDS = ""
+				+ "SELECT  " //
+				+ "    c.*, p.nome as nomePaciente, p.cpf as cpfPaciente, u.nome as usuarioNome, m.crm as crm " //
+				+ "FROM " //
+				+ "    consultas AS c " //
+				+ "        INNER JOIN " //
+				+ "    pacientes AS p ON c.paciente_id = p.id " //
+				+ "        INNER JOIN " //
+				+ "    medicos AS m ON c.medico_id = m.id " //
+				+ "        INNER JOIN " //
+				+ "    usuarios AS u ON u.id = m.id " //
+				+ "WHERE p.nome like ? or u.nome like ? or m.crm like ? or p.cpf like ? or c.data_agendamento like ?" //
+				+ "ORDER BY data_agendamento DESC";
+
+		String stringFromSearch = searchText + "%";
+
+		List<Consulta> consultas = new ArrayList<>();
+
+		try (Connection connection = getConnection()) {
+			PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_BY_FIELDS);
+
+			preparedStatement.setString(1, searchText);
+			preparedStatement.setString(2, stringFromSearch);
+			preparedStatement.setString(3, stringFromSearch);
+			preparedStatement.setString(4, stringFromSearch);
+			preparedStatement.setString(5, stringFromSearch);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			while (resultSet.next()) {
+				consultas.add(extractConsultaFromResultSet(resultSet));
+			}
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return consultas;
+    }
 }
