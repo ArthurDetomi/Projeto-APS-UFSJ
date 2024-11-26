@@ -21,6 +21,7 @@ import edu.ufsj.view.dialogs.JDialogCadastroAtendente;
 import edu.ufsj.view.dialogs.JDialogCadastroConsulta;
 import edu.ufsj.view.dialogs.JDialogCadastroMedico;
 import edu.ufsj.view.dialogs.JDialogCadastroPaciente;
+import edu.ufsj.view.login.JLogin;
 import edu.ufsj.view.table.ConsultaTableModel;
 import edu.ufsj.view.table.MedicoTableModel;
 import edu.ufsj.view.table.PacienteTableModel;
@@ -67,6 +68,8 @@ public class JHome extends javax.swing.JFrame {
         jFiltroConsultaBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jFinalizacaoConsultaButton = new javax.swing.JButton();
+        jFinalizaSessaoButton = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuCadastro = new javax.swing.JMenu();
@@ -168,6 +171,17 @@ public class JHome extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jFinalizacaoConsultaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 80, 150, 50));
+
+        jFinalizaSessaoButton.setText("Sair");
+        jFinalizaSessaoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFinalizaSessaoButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jFinalizaSessaoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 460, 180, 80));
+
+        jLabel5.setText("Deslogar da aplicação:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/background-home.png"))); // NOI18N
         jLabel1.setText("jLabel1");
@@ -379,6 +393,15 @@ public class JHome extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jBuscaDadosButtonActionPerformed
 
+    private void jFinalizaSessaoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFinalizaSessaoButtonActionPerformed
+        UserSession.getInstance().clearSession();
+
+        JLogin jLogin = new JLogin();
+        jLogin.abrir();
+
+        this.setVisible(false);
+    }//GEN-LAST:event_jFinalizaSessaoButtonActionPerformed
+
 	private void jFinalizacaoConsultaButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jFinalizacaoConsultaButtonActionPerformed
 		int selectedRowIndex = jTabelaListagens.getSelectedRow();
 
@@ -575,11 +598,13 @@ public class JHome extends javax.swing.JFrame {
     private javax.swing.JMenuItem jCadastroPaciente;
     private javax.swing.JButton jExcluirRowButton;
     private javax.swing.JComboBox<String> jFiltroConsultaBox;
+    private javax.swing.JButton jFinalizaSessaoButton;
     private javax.swing.JButton jFinalizacaoConsultaButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JButton jListaAtendentesButton;
     private javax.swing.JButton jListaMedicosButton;
     private javax.swing.JButton jListaPacientesButton;

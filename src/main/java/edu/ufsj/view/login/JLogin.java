@@ -17,6 +17,12 @@ import javax.swing.*;
  */
 public class JLogin extends javax.swing.JFrame {
 
+    public void abrir() {
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     /**
      * Creates new form JLogin
      */
