@@ -43,6 +43,7 @@ public class JHome extends javax.swing.JFrame {
      */
     public JHome() {
         initComponents();
+        atualizarTabelaComListaDeConsultas();
     }
 
     /**

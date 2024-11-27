@@ -48,6 +48,8 @@ public class JDialogCadastroConsulta extends JDialogGeneric {
      */
     public JDialogCadastroConsulta() {
         initComponents();
+        atualizarTabelaComListaDeMedicos();
+        atualizarTabelaComListaDePacientes();
     }
 
     /**
