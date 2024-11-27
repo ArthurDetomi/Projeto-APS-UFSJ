@@ -123,7 +123,8 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 	public List<Consulta> findAllConsultasDeHoje() {
 		List<Consulta> consultas = new ArrayList<>();
 
-		final String FIND_ALL_CONSULTAS_DE_HOJE_QUERY = "" + "SELECT  " //
+		final String FIND_ALL_CONSULTAS_DE_HOJE_QUERY = "" //
+				+ "SELECT  " //
 				+ "    c.*, p.nome as nomePaciente, p.cpf as cpfPaciente, u.nome as usuarioNome, m.crm as crm " //
 				+ "FROM " //
 				+ "    consultas AS c " //
@@ -190,7 +191,7 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 		final String UPDATE_DATA_FIM_CONSULTA = "" //
 				+ "UPDATE consultas   " //
 				+ "SET   " //
-				+ "    data_fim = CURRENT_TIMESTAMP()  " //
+				+ "    data_fim = ?  " //
 				+ "WHERE  " //
 				+ "    id = ?";
 
@@ -198,7 +199,8 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 
 		try (Connection connection = getConnection()) {
 			PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DATA_FIM_CONSULTA);
-			preparedStatement.setInt(1, consulta.getId());
+			preparedStatement.setString(1, DateUtil.formatarParaSqlDateTime(LocalDateTime.now()));
+			preparedStatement.setInt(2, consulta.getId());
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
@@ -207,8 +209,8 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 		return result == 1;
 	}
 
-    public List<Consulta> findAllByStringSearch(String searchText) {
-		final String FIND_ALL_BY_FIELDS = ""
+	public List<Consulta> findAllByStringSearch(String searchText) {
+		final String FIND_ALL_BY_FIELDS = "" //
 				+ "SELECT  " //
 				+ "    c.*, p.nome as nomePaciente, p.cpf as cpfPaciente, u.nome as usuarioNome, m.crm as crm " //
 				+ "FROM " //
@@ -245,5 +247,5 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 		}
 
 		return consultas;
-    }
+	}
 }

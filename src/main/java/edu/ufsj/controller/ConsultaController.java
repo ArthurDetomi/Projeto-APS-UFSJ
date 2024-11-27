@@ -20,7 +20,7 @@ public class ConsultaController {
 
 		LocalDateTime dataAgendamento = consulta.getDataAgendamento();
 
-		if (dataAgendamento.isBefore(LocalDateTime.now())) {
+		if (dataAgendamento.toLocalDate().isBefore(LocalDate.now())) {
 			return new Response<>(false, "Data de agendamento incorreta");
 		}
 
@@ -28,8 +28,10 @@ public class ConsultaController {
 
 		if (lastDataAgendamento != null) {
 			LocalDateTime lastDataAgendamentoPlusFifteenMinutes = lastDataAgendamento.plusMinutes(15);
+			LocalDateTime lastDataAgendamentoMinusFifteenMinutes = lastDataAgendamento.minusMinutes(15);
 
-			if (dataAgendamento.isBefore(lastDataAgendamentoPlusFifteenMinutes)) {
+			if (dataAgendamento.isBefore(lastDataAgendamentoPlusFifteenMinutes)
+					&& dataAgendamento.isAfter(lastDataAgendamentoMinusFifteenMinutes)) {
 				return new Response<>(false, "Horário de consulta deve ser posterior a "
 						+ DateUtil.formatterPadraoDataHora.format(lastDataAgendamentoPlusFifteenMinutes));
 			}
@@ -61,6 +63,10 @@ public class ConsultaController {
 
 		if (!dataAgendamento.toLocalDate().equals(LocalDate.now())) {
 			return new Response<>(false, "Somente consultas de hoje podem ser finalizadas");
+		}
+
+		if (dataAgendamento.isAfter(LocalDateTime.now().plusMinutes(1))) {
+			return new Response<>(false, "Não se pode finalizar consultas futuras");
 		}
 
 		boolean consultaFinalizadaComSucesso = consultaDao.finalizarConsulta(consulta);
