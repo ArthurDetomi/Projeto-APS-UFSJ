@@ -400,11 +400,17 @@ public class JHome extends javax.swing.JFrame {
         JLogin jLogin = new JLogin();
         jLogin.abrir();
 
-        this.setVisible(false);
-    }//GEN-LAST:event_jFinalizaSessaoButtonActionPerformed
+		this.setVisible(false);
+	}// GEN-LAST:event_jFinalizaSessaoButtonActionPerformed
 
 	private void jFinalizacaoConsultaButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jFinalizacaoConsultaButtonActionPerformed
-		int selectedRowIndex = jTabelaListagens.getSelectedRow();
+		if (!UserSession.getInstance().isUsuarioPodeFinalizarConsultaMedica()) {
+			JOptionPane.showMessageDialog(null, "Somente médicos e admins podem finalizar consulta", "Permissão error",
+					JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+        int selectedRowIndex = jTabelaListagens.getSelectedRow();
 
 		if (selectedRowIndex < 0) {
 			JOptionPane.showMessageDialog(null, "Nenhuma cosulta foi selecionada para finalização",
