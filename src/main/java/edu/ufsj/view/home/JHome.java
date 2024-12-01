@@ -404,7 +404,15 @@ public class JHome extends javax.swing.JFrame {
 	}// GEN-LAST:event_jFinalizaSessaoButtonActionPerformed
 
 	private void jFinalizacaoConsultaButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jFinalizacaoConsultaButtonActionPerformed
-		if (!UserSession.getInstance().isUsuarioPodeFinalizarConsultaMedica()) {
+        AbstractTableModel currentTableModel = (AbstractTableModel) jTabelaListagens.getModel();
+
+        if (!(currentTableModel instanceof ConsultaTableModel)) {
+            JOptionPane.showMessageDialog(null, "Somente consultas podem ser finalizadas ",
+                    "Finalização consulta error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!UserSession.getInstance().isUsuarioPodeFinalizarConsultaMedica()) {
 			JOptionPane.showMessageDialog(null, "Somente médicos e admins podem finalizar consulta", "Permissão error",
 					JOptionPane.ERROR_MESSAGE);
 			return;
@@ -414,14 +422,6 @@ public class JHome extends javax.swing.JFrame {
 
 		if (selectedRowIndex < 0) {
 			JOptionPane.showMessageDialog(null, "Nenhuma cosulta foi selecionada para finalização",
-					"Finalização consulta error", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-
-		AbstractTableModel currentTableModel = (AbstractTableModel) jTabelaListagens.getModel();
-
-		if (!(currentTableModel instanceof ConsultaTableModel)) {
-			JOptionPane.showMessageDialog(null, "Somente consultas podem ser finalizadas ",
 					"Finalização consulta error", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
