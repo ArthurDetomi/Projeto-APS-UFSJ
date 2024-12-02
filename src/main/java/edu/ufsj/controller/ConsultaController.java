@@ -57,6 +57,10 @@ public class ConsultaController {
 	public Response<Consulta> finalizarConsulta(Consulta consulta) {
 		LocalDateTime dataAgendamento = consulta.getDataAgendamento();
 
+		if (consulta.isConsultaRealizada()) {
+			return new Response<>(false, "Consulta já foi realizada");
+		}
+
 		if (consulta.getId() == null || dataAgendamento == null) {
 			return new Response<>(false, "Consulta selecionada inválida");
 		}
