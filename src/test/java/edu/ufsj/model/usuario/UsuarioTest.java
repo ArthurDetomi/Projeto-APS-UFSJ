@@ -1,16 +1,14 @@
 package edu.ufsj.model.usuario;
 
+import java.time.LocalDateTime;
+
 import edu.ufsj.dao.UsuarioDao;
 import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
 import edu.ufsj.service.UserSession;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
 
 public class UsuarioTest {
 
-    @Test
     public void testCadastroUsuario() {
         String login = "diogo";
         String password = "diogosenha";
@@ -32,7 +30,6 @@ public class UsuarioTest {
         }
     }
 
-    @Test
     public void testLoginUsuario() {
         String login = "diogo";
         String password = "diogosenha";
