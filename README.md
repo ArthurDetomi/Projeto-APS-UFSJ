@@ -51,6 +51,18 @@ E apos isso rodar o comando:
 ```bash
 make rodar_programa_pos_compilacao
 ```
+# Utilização do programa
 
+No script do banco de dados foi inserido um usuário administrador o qual o login é "admin" e a senha "admin".
 
+**Tela de Login**
+![Tela login](docs/images/tela-login.png)
 
+**Tela Principal**
+![Tela Principal](docs/images/tela-principal.png)
+
+**Dialog de cadastro de consulta Médica**
+![Cadastro Consulta](docs/images/cadastro-consulta.png)
+
+**Dialog de cadastro de Pacientes**
+![Cadastro de Pacientes](docs/images/cadastro-pacientes.png)
