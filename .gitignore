@@ -37,6 +37,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Maven ###
+dependency-reduced-pom.xml
+
 ### VS Code ###
 .vscode/
 
