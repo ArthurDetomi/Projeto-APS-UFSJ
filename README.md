@@ -61,6 +61,12 @@ No script do banco de dados foi inserido um usuário administrador o qual o logi
 **Tela Principal**
 ![Tela Principal](docs/images/tela-principal.png)
 
+**Menu de Cadastro**<br>
+:warning: Foto saiu com baixa qualidade
+
+![Menu Cadastro](docs/images/menu-cadastro.jpeg)
+
+
 **Dialog de cadastro de consulta Médica**
 ![Cadastro Consulta](docs/images/cadastro-consulta.png)
 
