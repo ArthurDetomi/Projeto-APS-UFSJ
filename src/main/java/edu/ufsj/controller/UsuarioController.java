@@ -1,6 +1,6 @@
 package edu.ufsj.controller;
 
-import edu.ufsj.dao.UsuarioDao;
+import edu.ufsj.persistence.UsuarioDao;
 import edu.ufsj.exception.FalhaAutenticacaoUsuarioException;
 import edu.ufsj.exception.UsuarioJaExisteException;
 import edu.ufsj.model.TipoUsuario;

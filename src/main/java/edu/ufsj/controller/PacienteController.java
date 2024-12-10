@@ -1,11 +1,9 @@
 package edu.ufsj.controller;
 
-import edu.ufsj.dao.PacienteDao;
+import edu.ufsj.persistence.PacienteDao;
 import edu.ufsj.exception.PacienteJaExisteException;
-import edu.ufsj.model.Medico;
 import edu.ufsj.model.Paciente;
 
-import java.util.Collections;
 import java.util.List;
 
 public class PacienteController {

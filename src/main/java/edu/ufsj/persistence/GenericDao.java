@@ -1,4 +1,4 @@
-package edu.ufsj.dao;
+package edu.ufsj.persistence;
 
 public interface GenericDao<T> {
 

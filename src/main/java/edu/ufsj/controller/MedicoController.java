@@ -1,12 +1,9 @@
 package edu.ufsj.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
-import edu.ufsj.dao.MedicoDao;
-import edu.ufsj.dao.UsuarioDao;
+import edu.ufsj.persistence.MedicoDao;
+import edu.ufsj.persistence.UsuarioDao;
 import edu.ufsj.exception.UsuarioJaExisteException;
 import edu.ufsj.model.Medico;
 

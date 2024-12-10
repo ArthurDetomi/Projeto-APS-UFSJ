@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import edu.ufsj.dao.ConsultaDao;
+import edu.ufsj.persistence.ConsultaDao;
 import edu.ufsj.model.Consulta;
 import edu.ufsj.utils.DateUtil;
 import edu.ufsj.utils.Response;
