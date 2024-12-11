@@ -1,4 +1,3 @@
-# Documentação
 # Clinic Manager
 ## Dependências
 Programa foi desenvolvido utilizando java 11, não testado com outras versões.
