@@ -1,16 +1,16 @@
 package edu.ufsj.controller;
 
+import java.util.List;
+
+import edu.ufsj.dao.ConsultaDao;
 import edu.ufsj.dao.PacienteDao;
 import edu.ufsj.exception.PacienteJaExisteException;
-import edu.ufsj.model.Medico;
 import edu.ufsj.model.Paciente;
-
-import java.util.Collections;
-import java.util.List;
 
 public class PacienteController {
 
 	private final PacienteDao pacienteDao = new PacienteDao();
+	private final ConsultaDao consultaDao = new ConsultaDao();
 
 	public boolean cadastrarPaciente(Paciente paciente) throws PacienteJaExisteException {
 		if (pacienteDao.existsByCpf(paciente.getCpf())) {
@@ -25,6 +25,8 @@ public class PacienteController {
 	}
 
 	public boolean excluirPaciente(Integer idPaciente) {
+		consultaDao.deleteConsultasByPacienteId(idPaciente);
+
 		return pacienteDao.delete(idPaciente);
 	}
 

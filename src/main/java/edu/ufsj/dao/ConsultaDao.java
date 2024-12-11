@@ -55,6 +55,40 @@ public class ConsultaDao extends AbstractGenericDao implements GenericDao<Consul
 		return result == 1;
 	}
 
+	public boolean deleteConsultasByPacienteId(Integer pacienteId) {
+		String DELETE_CONSULTA_QUERY = "" //
+				+ "DELETE FROM consultas WHERE paciente_id = ?";
+
+		int result = 0;
+
+		try {
+			PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_CONSULTA_QUERY);
+			preparedStatement.setInt(1, pacienteId);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return result >= 1;
+	}
+
+	public boolean deleteConsultasByMedicoId(Integer medicoId) {
+		String DELETE_CONSULTA_QUERY = "" //
+				+ "DELETE FROM consultas WHERE medico_id = ?";
+
+		int result = 0;
+
+		try {
+			PreparedStatement preparedStatement = getConnection().prepareStatement(DELETE_CONSULTA_QUERY);
+			preparedStatement.setInt(1, medicoId);
+			result = preparedStatement.executeUpdate();
+		} catch (SQLException sqlException) {
+			sqlException.printStackTrace();
+		}
+
+		return result >= 1;
+	}
+
 	public LocalDateTime findLastDataAgendamento(Consulta consulta) {
 		Medico medico = consulta.getMedico();
 
