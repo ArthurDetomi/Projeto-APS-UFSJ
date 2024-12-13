@@ -9,6 +9,7 @@ O  [**`> Diagrama de Classes <`**](./docs/classes-diagram.pdf) foi atualizado du
 
 - [Diagrama de Casos de Uso](./docs/diagrama-caso-de-uso.pdf)
 - [Descrição do Software](./docs/apsTP-Modelo-Parte-1.docx)
+- [Diagrama do pacote model](./docs/diagrama-classe.pdf)
 - [Diagrama de Comunicação](./docs/diagrama-de-comunicação.jpg)
 
 ### ✅ `Entrega 2` - Finalização do programa
