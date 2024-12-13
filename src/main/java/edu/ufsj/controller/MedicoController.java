@@ -2,6 +2,7 @@ package edu.ufsj.controller;
 
 import java.util.List;
 
+import edu.ufsj.persistence.ConsultaDao;
 import edu.ufsj.persistence.MedicoDao;
 import edu.ufsj.persistence.UsuarioDao;
 import edu.ufsj.exception.UsuarioJaExisteException;
@@ -9,9 +10,11 @@ import edu.ufsj.model.Medico;
 
 public class MedicoController {
 
-	private UsuarioDao usuarioDao = new UsuarioDao();
+	private final UsuarioDao usuarioDao = new UsuarioDao();
 
-	private MedicoDao medicoDao = new MedicoDao();
+	private final MedicoDao medicoDao = new MedicoDao();
+
+	private final ConsultaDao consultaDao = new ConsultaDao();
 
 	public boolean cadastrarMedico(Medico medico) throws UsuarioJaExisteException {
 		UsuarioController usuarioController = new UsuarioController();
@@ -34,6 +37,8 @@ public class MedicoController {
 	}
 
 	public boolean excluirMedico(Integer idMedico) {
+		consultaDao.deleteConsultasByMedicoId(idMedico);
+
 		boolean deletionSuccessful = medicoDao.delete(idMedico);
 
 		if (!deletionSuccessful) {
