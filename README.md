@@ -1,10 +1,5 @@
 # Clinic Manager
 ## 📦 Entregas
-
-O trabalho foi divido em três entregas, onde os erros das entregas passadas deveriam ser corrigidos.
-
-O  [**`> Diagrama de Classes <`**](./docs/classes-diagram.pdf) foi atualizado durante todo o desenvolvimento do projeto.
-
 ### ✅ `Entrega 1` - Início do programa
 
 - [Diagrama de Casos de Uso](./docs/diagrama-caso-de-uso.pdf)
