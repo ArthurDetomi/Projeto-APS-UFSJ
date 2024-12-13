@@ -2,7 +2,7 @@ package edu.ufsj.model.usuario;
 
 import java.time.LocalDateTime;
 
-import edu.ufsj.dao.UsuarioDao;
+import edu.ufsj.persistence.UsuarioDao;
 import edu.ufsj.model.TipoUsuario;
 import edu.ufsj.model.Usuario;
 import edu.ufsj.service.UserSession;

@@ -59,12 +59,6 @@ public class JDialogCadastroPaciente extends JDialogGeneric {
 
         jNome.setText("Nome:");
 
-        jTextFieldNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomeActionPerformed(evt);
-            }
-        });
-
         jCPF.setText("CPF:");
 
         jTelefone.setText("Telefone:");
@@ -177,10 +171,6 @@ public class JDialogCadastroPaciente extends JDialogGeneric {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeActionPerformed
 
 	private void jCadastroPacienteButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroPacienteButtonActionPerformed
 		// TODO add your handling code here:

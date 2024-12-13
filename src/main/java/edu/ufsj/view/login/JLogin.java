@@ -65,12 +65,6 @@ public class JLogin extends javax.swing.JFrame {
 
         jPasswordLabel.setText("Senha");
 
-        jLoginField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jLoginFieldActionPerformed(evt);
-            }
-        });
-
         jLoginButton.setText("Entrar");
         jLoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,17 +153,16 @@ public class JLogin extends javax.swing.JFrame {
 		}
 
 		if (loginRealizadoComSucesso) {
-            JOptionPane.showMessageDialog(null, "Bem vindo " + UserSession.getInstance().getLoggedUser().getNome());
+			JOptionPane.showMessageDialog(null, "Bem vindo " + UserSession.getInstance().getLoggedUser().getNome());
 			JHome jHome = new JHome();
 			jHome.abrirDialog();
 
 			this.setVisible(false);
+		} else {
+			JOptionPane.showMessageDialog(null, "Erro ao efetuar login", "Erro login", JOptionPane.ERROR_MESSAGE);
 		}
 	}// GEN-LAST:event_jLoginButtonActionPerformed
 
-    private void jLoginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLoginFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLoginFieldActionPerformed
 
     /**
      * @param args the command line arguments

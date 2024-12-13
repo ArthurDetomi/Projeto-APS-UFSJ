@@ -192,11 +192,6 @@ public class JHome extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 1360, 768));
 
         jMenuCadastro.setText("Cadastro");
-        jMenuCadastro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuCadastroActionPerformed(evt);
-            }
-        });
 
         jCadastroConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/consulta.png"))); // NOI18N
         jCadastroConsulta.setText("Consulta Médica");
@@ -209,11 +204,6 @@ public class JHome extends javax.swing.JFrame {
 
         jCadastroPaciente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/edu/ufsj/view/images/patient.png"))); // NOI18N
         jCadastroPaciente.setText("Paciente");
-        jCadastroPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jCadastroPacienteMouseClicked(evt);
-            }
-        });
         jCadastroPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCadastroPacienteActionPerformed(evt);
@@ -261,10 +251,6 @@ public class JHome extends javax.swing.JFrame {
        atualizarTabelaComListaDeConsultas();
     }//GEN-LAST:event_jListarConsultasButtonActionPerformed
     
-    private void jCadastroPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCadastroPacienteMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jCadastroPacienteMouseClicked
 
 	private void atualizarTabelaComListaDeConsultas() {
 		String filtro = (String) jFiltroConsultaBox.getSelectedItem();
@@ -312,10 +298,6 @@ public class JHome extends javax.swing.JFrame {
 
         jTabelaListagens.setModel(medicoTableModel);
     }
-
-    private void jMenuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuCadastroActionPerformed
 
 	private void jCadastroMedicoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jCadastroMedicoActionPerformed
 		if (!UserSession.getInstance().isUsuarioLogadoPodeCadastrarMedico()) {
