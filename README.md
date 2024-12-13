@@ -1,4 +1,28 @@
 # Clinic Manager
+## 📦 Entregas
+
+O trabalho foi divido em três entregas, onde os erros das entregas passadas deveriam ser corrigidos.
+
+O  [**`> Diagrama de Classes <`**](./docs/classes-diagram.pdf) foi atualizado durante todo o desenvolvimento do projeto.
+
+### ✅ `Entrega 1` - Início do programa
+
+- [Diagrama de Casos de Uso](./docs/diagrama-caso-de-uso.pdf)
+- [Descrição do Software](./docs/apsTP-Modelo-Parte-1.docx)
+- [Diagrama de Comunicação](./docs/diagrama-de-comunicação.jpg)
+
+### ✅ `Entrega 2` - Finalização do programa
+
+- [Diagrama de Camadas de uma entidade](./docs/diagrama-classes-camadas.pdf)
+- [Diagrama de Atividade](./docs/diagrama_atividade.png)
+- [Diagrama de Máquina de Estados](./docs/diagrama-estado.pdf)
+
+### ✅ `Entrega 3` - Implementação de padrões de software
+
+- [x] Implementação do padrão DAO
+- [x] Implementação do padrão Singleton
+- [ ] Implementação do padrão Decorator
+
 ## Dependências
 Programa foi desenvolvido utilizando java 11, não testado com outras versões.
 
