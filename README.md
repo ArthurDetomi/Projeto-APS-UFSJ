@@ -16,7 +16,7 @@ O  [**`> Diagrama de Classes <`**](./docs/classes-diagram.pdf) foi atualizado du
 
 - [Diagrama de Camadas de uma entidade](./docs/diagrama-classes-camadas.pdf)
 - [Diagrama de Atividade](./docs/diagrama_atividade.png)
-- [Diagrama de Máquina de Estados](./docs/diagrama-estado.pdf)
+- [Diagrama de Máquina de Estados](./docs/diagrama-estado.png)
 
 ### ✅ `Entrega 3` - Implementação de padrões de software
 
