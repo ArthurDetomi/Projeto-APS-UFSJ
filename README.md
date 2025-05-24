@@ -17,7 +17,7 @@
 
 - [x] Implementação do padrão DAO
 - [x] Implementação do padrão Singleton
-- [ ] Implementação do padrão Decorator
+- [x] Implementação do padrão Decorator
 
 ## Dependências
 Programa foi desenvolvido utilizando java 11, não testado com outras versões.
